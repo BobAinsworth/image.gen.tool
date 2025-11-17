@@ -44,16 +44,23 @@
       margin-bottom: 0.25rem;
     }
 
+    .tagline {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.35rem;
+    }
+
     .subtitle {
       font-size: 0.95rem;
       color: var(--muted);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .question {
       border-top: 1px solid #e5e7eb;
-      padding-top: 1rem;
-      margin-top: 1rem;
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
     }
 
     .question:first-of-type {
@@ -64,26 +71,20 @@
 
     .question-title {
       font-weight: 600;
-      margin-bottom: 0.35rem;
-    }
-
-    .question-helper {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.2rem;
     }
 
     .options {
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.1rem; /* closer spacing between answers */
     }
 
     label.option {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.35rem;
+      gap: 0.45rem;
+      padding: 0.1rem 0.2rem;
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.15s ease, border-color 0.15s ease;
@@ -96,6 +97,7 @@
     .option input[type="radio"] {
       accent-color: var(--accent);
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .option-text {
@@ -103,26 +105,27 @@
     }
 
     .free-input {
-      margin-left: 1.8rem;
-      margin-top: 0.2rem;
-      margin-bottom: 0.35rem;
-      width: min(100%, 420px);
-      padding: 0.3rem 0.4rem;
+      padding: 0.25rem 0.4rem;
       border-radius: 6px;
       border: 1px solid var(--border);
       font-size: 0.9rem;
     }
 
-    textarea.free-input {
-      width: 100%;
+    .free-inline {
+      flex: 1;
+      max-width: 420px;
+    }
+
+    textarea.free-inline {
       min-height: 80px;
       resize: vertical;
+      width: 100%;
     }
 
     .actions {
-      margin-top: 1.75rem;
+      margin-top: 1.5rem;
       border-top: 1px solid #e5e7eb;
-      padding-top: 1.25rem;
+      padding-top: 1.1rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
@@ -130,18 +133,22 @@
       justify-content: space-between;
     }
 
-    .btn-primary {
+    .btn-primary,
+    .btn-secondary {
       appearance: none;
       border: none;
       border-radius: 999px;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.95rem;
+      padding: 0.45rem 1.2rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    .btn-primary {
       background: var(--accent);
       color: white;
       box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
-      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
     }
 
     .btn-primary:hover {
@@ -155,13 +162,29 @@
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-secondary:hover {
+      background: #d4d4d8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(15,23,42,0.12);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 8px rgba(15,23,42,0.12);
+    }
+
     .summary-section {
-      margin-top: 1.75rem;
+      margin-top: 1.5rem;
     }
 
     .summary-section h2 {
       font-size: 1.1rem;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     #summaryText {
@@ -178,7 +201,16 @@
     .hint {
       font-size: 0.8rem;
       color: var(--muted);
-      margin-top: 0.2rem;
+      margin-top: 0.25rem;
+    }
+
+    .summary-actions {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      justify-content: space-between;
     }
 
     @media (max-width: 640px) {
@@ -194,8 +226,9 @@
 <body>
   <div class="container">
     <h1>People Image Generation Prompt Tool</h1>
+    <div class="tagline">Create an amazing one person image.</div>
     <div class="subtitle">
-      QUESTIONS – (Click on the circles next to your choices). For any “Free-form description,” type your own wording.
+      QUESTIONS – (Click on the circles next to your choices). For any free-form answers, type your own wording in the box.
     </div>
 
     <form id="promptForm">
@@ -227,11 +260,11 @@
             <input type="radio" name="q1" value="Social media content">
             <span class="option-text">Social media content</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q1" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q1_free" placeholder="Describe the purpose in your own words" />
           </label>
-          <input class="free-input" type="text" name="q1_free" placeholder="Describe the purpose in your own words" />
         </div>
       </div>
 
@@ -263,11 +296,11 @@
             <input type="radio" name="q2" value="Social media followers">
             <span class="option-text">Social media followers</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q2" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q2_free" placeholder="Describe the audience in your own words" />
           </label>
-          <input class="free-input" type="text" name="q2_free" placeholder="Describe the audience in your own words" />
         </div>
       </div>
 
@@ -295,11 +328,11 @@
             <input type="radio" name="q3" value="Senior">
             <span class="option-text">Senior</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q3" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q3_free" placeholder="Describe the age in your own words" />
           </label>
-          <input class="free-input" type="text" name="q3_free" placeholder="Describe the age in your own words" />
         </div>
       </div>
 
@@ -323,11 +356,11 @@
             <input type="radio" name="q4" value="Nonbinary">
             <span class="option-text">Nonbinary</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q4" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q4_free" placeholder="Describe the gender presentation" />
           </label>
-          <input class="free-input" type="text" name="q4_free" placeholder="Describe the gender presentation" />
         </div>
       </div>
 
@@ -371,11 +404,11 @@
             <input type="radio" name="q5" value="African American / Black">
             <span class="option-text">African American / Black</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q5" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q5_free" placeholder="Describe ethnicity or facial characteristics" />
           </label>
-          <input class="free-input" type="text" name="q5_free" placeholder="Describe ethnicity or facial characteristics" />
         </div>
       </div>
 
@@ -403,11 +436,11 @@
             <input type="radio" name="q6" value="Joyful / laughing">
             <span class="option-text">Joyful / laughing</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q6" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q6_free" placeholder="Describe the expression" />
           </label>
-          <input class="free-input" type="text" name="q6_free" placeholder="Describe the expression" />
         </div>
       </div>
 
@@ -443,11 +476,11 @@
             <input type="radio" name="q7" value="Distinctive nose shape">
             <span class="option-text">Distinctive nose shape</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q7" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q7_free" placeholder="Describe facial features or complexion" />
           </label>
-          <input class="free-input" type="text" name="q7_free" placeholder="Describe facial features or complexion" />
         </div>
       </div>
 
@@ -479,11 +512,11 @@
             <input type="radio" name="q8" value="Muscular">
             <span class="option-text">Muscular</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q8" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q8_free" placeholder="Describe overall stature" />
           </label>
-          <input class="free-input" type="text" name="q8_free" placeholder="Describe overall stature" />
         </div>
       </div>
 
@@ -507,11 +540,11 @@
             <input type="radio" name="q9" value="Full-body shot">
             <span class="option-text">Full-body shot</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q9" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q9_free" placeholder="Describe the framing" />
           </label>
-          <input class="free-input" type="text" name="q9_free" placeholder="Describe the framing" />
         </div>
       </div>
 
@@ -535,11 +568,11 @@
             <input type="radio" name="q10" value="Dynamic/action pose">
             <span class="option-text">Dynamic/action pose</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q10" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q10_free" placeholder="Describe the pose" />
           </label>
-          <input class="free-input" type="text" name="q10_free" placeholder="Describe the pose" />
         </div>
       </div>
 
@@ -563,11 +596,11 @@
             <input type="radio" name="q11" value="Outdoors / adventure">
             <span class="option-text">Outdoors / adventure</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q11" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q11_free" placeholder="Describe clothing style" />
           </label>
-          <input class="free-input" type="text" name="q11_free" placeholder="Describe clothing style" />
         </div>
       </div>
 
@@ -595,11 +628,11 @@
             <input type="radio" name="q12" value="Futuristic or abstract">
             <span class="option-text">Futuristic or abstract</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q12" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q12_free" placeholder="Describe the environment or background" />
           </label>
-          <input class="free-input" type="text" name="q12_free" placeholder="Describe the environment or background" />
         </div>
       </div>
 
@@ -631,11 +664,11 @@
             <input type="radio" name="q13" value="Off into the distance (not facing camera)">
             <span class="option-text">Off into the distance (not facing camera)</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q13" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q13_free" placeholder="Describe the direction of the subject's gaze" />
           </label>
-          <input class="free-input" type="text" name="q13_free" placeholder="Describe the direction of the subject's gaze" />
         </div>
       </div>
 
@@ -667,11 +700,11 @@
             <input type="radio" name="q14" value="Bottom lighting (dramatic)">
             <span class="option-text">Bottom lighting (dramatic)</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q14" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q14_free" placeholder="Describe the lighting direction" />
           </label>
-          <input class="free-input" type="text" name="q14_free" placeholder="Describe the lighting direction" />
         </div>
       </div>
 
@@ -699,11 +732,11 @@
             <input type="radio" name="q15" value="Moody low-key shadowing">
             <span class="option-text">Moody low-key shadowing</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q15" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q15_free" placeholder="Describe the lighting style" />
           </label>
-          <input class="free-input" type="text" name="q15_free" placeholder="Describe the lighting style" />
         </div>
       </div>
 
@@ -735,11 +768,11 @@
             <input type="radio" name="q16" value="Pencil sketch">
             <span class="option-text">Pencil sketch</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q16" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q16_free" placeholder="Describe the art style or realism level" />
           </label>
-          <input class="free-input" type="text" name="q16_free" placeholder="Describe the art style or realism level" />
         </div>
       </div>
 
@@ -763,11 +796,11 @@
             <input type="radio" name="q17" value="Wide-angle environmental portrait">
             <span class="option-text">Wide-angle environmental portrait</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q17" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q17_free" placeholder="Describe lens style or technical details" />
           </label>
-          <input class="free-input" type="text" name="q17_free" placeholder="Describe lens style or technical details" />
         </div>
       </div>
 
@@ -799,11 +832,11 @@
             <input type="radio" name="q18" value="Ultra-wide (2:1)">
             <span class="option-text">Ultra-wide (2:1)</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q18" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q18_free" placeholder="Describe the aspect ratio" />
           </label>
-          <input class="free-input" type="text" name="q18_free" placeholder="Describe the aspect ratio" />
         </div>
       </div>
 
@@ -827,11 +860,11 @@
             <input type="radio" name="q19" value="Background storytelling elements">
             <span class="option-text">Background storytelling elements – describe below</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q19" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q19_free" placeholder="Describe extra elements or storytelling details" />
           </label>
-          <input class="free-input" type="text" name="q19_free" placeholder="Describe extra elements or storytelling details" />
         </div>
       </div>
 
@@ -855,11 +888,11 @@
             <input type="radio" name="q20" value="Unrealistic skin smoothing">
             <span class="option-text">Unrealistic skin smoothing</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q20" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q20_free" placeholder="Describe anything you want to avoid" />
           </label>
-          <input class="free-input" type="text" name="q20_free" placeholder="Describe anything you want to avoid" />
         </div>
       </div>
 
@@ -883,11 +916,11 @@
             <input type="radio" name="q21" value="Soft and emotional">
             <span class="option-text">Soft and emotional</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="q21" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="q21_free" placeholder="Describe the tone or mood" />
           </label>
-          <input class="free-input" type="text" name="q21_free" placeholder="Describe the tone or mood" />
         </div>
       </div>
 
@@ -895,17 +928,19 @@
       <div class="question" data-question="Is there anything else you wish to describe?">
         <div class="question-title">(22) Is there anything else you wish to describe?</div>
         <div class="options">
+          <!-- Free-form inline with textarea -->
           <label class="option">
             <input type="radio" name="q22" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <textarea class="free-input free-inline" id="extraDescription" name="q22_free" placeholder="Add any extra notes or details here"></textarea>
           </label>
         </div>
-        <textarea class="free-input" id="extraDescription" name="q22_free" placeholder="Add any extra notes or details here"></textarea>
       </div>
 
       <!-- Ready for summary -->
       <div class="question" data-question="Are you ready for a summary of your responses?">
-        <div class="question-title">Are you ready for a summary of your responses that can be used by your favorite AI bot to generate a comprehensive prompt?</div>
+        <div class="question-title">
+          Are you ready for a summary of your responses that can be used by your favorite AI bot to generate a comprehensive prompt?
+        </div>
         <div class="options">
           <label class="option">
             <input type="radio" name="ready" value="Yes">
@@ -915,11 +950,11 @@
             <input type="radio" name="ready" value="No">
             <span class="option-text">No</span>
           </label>
+          <!-- Free-form inline -->
           <label class="option">
             <input type="radio" name="ready" value="Free-form">
-            <span class="option-text">Free-form description</span>
+            <input class="free-input free-inline" type="text" name="ready_free" placeholder="Describe your preference" />
           </label>
-          <input class="free-input" type="text" name="ready_free" placeholder="Describe your preference" />
         </div>
       </div>
 
@@ -928,7 +963,7 @@
           Generate Summary for AI Prompt
         </button>
         <div class="hint">
-          Click “Generate Summary” after selecting “Yes” above. You can copy the summary into your favorite AI image tool.
+          Click “Generate Summary” after you are ready above.
         </div>
       </div>
     </form>
@@ -936,17 +971,36 @@
     <div class="summary-section">
       <h2>Summary of Your Responses (for AI prompt)</h2>
       <textarea id="summaryText" placeholder="Your summary will appear here after you click &quot;Generate Summary&quot;."></textarea>
-      <div class="hint">
-        Tip: Copy this text and paste it into your AI image generator as your prompt.
+      <div class="summary-actions">
+        <button type="button" class="btn-secondary" id="copySummary">
+          Copy Summary Contents
+        </button>
+        <div class="hint">
+          Tip: Click “Copy Summary Contents” and paste it into your favorite AI bot (ChatGPT, Gemini, etc.).
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Auto-check the "free-form" radio when user focuses or types in a free-form box
+    document.querySelectorAll('.free-input').forEach(function (inputEl) {
+      ['focus', 'input'].forEach(function (evt) {
+        inputEl.addEventListener(evt, function () {
+          const label = inputEl.closest('label.option');
+          if (!label) return;
+          const radio = label.querySelector('input[type="radio"]');
+          if (radio && !radio.checked) {
+            radio.checked = true;
+          }
+        });
+      });
+    });
+
+    // Generate summary
     document.getElementById("generateSummary").addEventListener("click", function () {
       const readyYes = document.querySelector('input[name="ready"][value="Yes"]:checked');
       const readyFree = document.querySelector('input[name="ready"][value="Free-form"]:checked');
-      const readyFreeText = document.querySelector('input[name="ready_free"]')?.value.trim();
 
       if (!readyYes && !readyFree) {
         alert("Please indicate that you are ready for a summary (select Yes or describe your preference).");
@@ -995,24 +1049,49 @@
         lines.push(qNumber + ". " + label + " — " + answerText);
       });
 
-      const extra = document.getElementById("extraDescription");
-      if (extra && extra.value.trim()) {
-        lines.push("Additional description: " + extra.value.trim());
-      }
-
-      if (!lines.length) {
-        alert("No responses found. Please answer at least one question before generating a summary.");
-        return;
-      }
-
       const summary =
         "Comprehensive people-image prompt based on the following choices:\n\n" +
         lines.join("\n") +
-        "\n\nUse these details to generate a single coherent image prompt.";
+        "\n\nUse these details to generate a single coherent image prompt.\nAfter generating the prompt, ask 'Do you want me to run the prompt?'";
 
       const summaryBox = document.getElementById("summaryText");
       summaryBox.value = summary;
       summaryBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Copy summary to clipboard
+    document.getElementById("copySummary").addEventListener("click", function () {
+      const summaryBox = document.getElementById("summaryText");
+      const text = summaryBox.value.trim();
+
+      if (!text) {
+        alert("There is no summary to copy yet. Please generate a summary first.");
+        return;
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            alert("Summary copied to clipboard.");
+          })
+          .catch(() => {
+            summaryBox.select();
+            try {
+              document.execCommand("copy");
+              alert("Summary copied to clipboard.");
+            } catch (e) {
+              alert("Unable to copy automatically. Please select the text and copy it manually.");
+            }
+          });
+      } else {
+        summaryBox.select();
+        try {
+          document.execCommand("copy");
+          alert("Summary copied to clipboard.");
+        } catch (e) {
+          alert("Unable to copy automatically. Please select the text and copy it manually.");
+        }
+      }
     });
   </script>
 </body>
