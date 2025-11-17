@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>People Image Generation Prompt Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --border: #d0d7e2;
+      --text: #111827;
+      --muted: #4b5563;
+      --accent: #2563eb;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 1.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem 2.5rem;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .question {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .question:first-of-type {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .question-title {
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .question-helper {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    label.option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.35rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    label.option:hover {
+      background: #f3f4ff;
+    }
+
+    .option input[type="radio"] {
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .option-text {
+      font-size: 0.95rem;
+    }
+
+    .free-input {
+      margin-left: 1.8rem;
+      margin-top: 0.2rem;
+      margin-bottom: 0.35rem;
+      width: min(100%, 420px);
+      padding: 0.3rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    textarea.free-input {
+      width: 100%;
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .actions {
+      margin-top: 1.75rem;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-primary {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+      background: #1d4ed8;
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .summary-section {
+      margin-top: 1.75rem;
+    }
+
+    .summary-section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    #summaryText {
+      width: 100%;
+      min-height: 200px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.7rem;
+      font-size: 0.9rem;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 0.75rem;
+      }
+      .container {
+        padding: 1.1rem 1.1rem 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>People Image Generation Prompt Tool</h1>
+    <div class="subtitle">
+      QUESTIONS – (Click on the circles next to your choices). For any “Free-form description,” type your own wording.
+    </div>
+
+    <form id="promptForm">
+      <!-- (1) Purpose -->
+      <div class="question" data-question="What is the purpose or point of the image?">
+        <div class="question-title">(1) What is the purpose or point of the image?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q1" value="Portrait for personal use">
+            <span class="option-text">Portrait for personal use</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="Professional or business profile">
+            <span class="option-text">Professional or business profile</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="Marketing / promotional image">
+            <span class="option-text">Marketing / promotional image</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="Artistic or conceptual piece">
+            <span class="option-text">Artistic or conceptual piece</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="Storytelling or narrative moment">
+            <span class="option-text">Storytelling or narrative moment</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="Social media content">
+            <span class="option-text">Social media content</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q1_free" placeholder="Describe the purpose in your own words" />
+        </div>
+      </div>
+
+      <!-- (2) Audience -->
+      <div class="question" data-question="Who is the intended audience for the image?">
+        <div class="question-title">(2) Who is the intended audience for the image?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q2" value="General public">
+            <span class="option-text">General public</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="Professional audience (industry, business, LinkedIn, etc.)">
+            <span class="option-text">Professional audience (industry, business, LinkedIn, etc.)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="Creative community (artists, photographers, designers)">
+            <span class="option-text">Creative community (artists, photographers, designers)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="Friends and family">
+            <span class="option-text">Friends and family</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="Academic or educational audience">
+            <span class="option-text">Academic or educational audience</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="Social media followers">
+            <span class="option-text">Social media followers</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q2_free" placeholder="Describe the audience in your own words" />
+        </div>
+      </div>
+
+      <!-- (3) Age category -->
+      <div class="question" data-question="What is the age category of the person?">
+        <div class="question-title">(3) What is the age category of the person?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q3" value="Child">
+            <span class="option-text">Child</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="Teen">
+            <span class="option-text">Teen</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="Young adult">
+            <span class="option-text">Young adult</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="Adult">
+            <span class="option-text">Adult</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="Senior">
+            <span class="option-text">Senior</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q3_free" placeholder="Describe the age in your own words" />
+        </div>
+      </div>
+
+      <!-- (4) Gender presentation -->
+      <div class="question" data-question="What is the gender presentation?">
+        <div class="question-title">(4) What is the gender presentation?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q4" value="Female">
+            <span class="option-text">Female</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q4" value="Male">
+            <span class="option-text">Male</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q4" value="Androgynous">
+            <span class="option-text">Androgynous</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q4" value="Nonbinary">
+            <span class="option-text">Nonbinary</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q4" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q4_free" placeholder="Describe the gender presentation" />
+        </div>
+      </div>
+
+      <!-- (5) Ethnicity / facial characteristics -->
+      <div class="question" data-question="What is the ethnicity or facial characteristics?">
+        <div class="question-title">(5) What is the ethnicity or facial characteristics?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q5" value="African / Afro-Caribbean">
+            <span class="option-text">African / Afro-Caribbean</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="East Asian">
+            <span class="option-text">East Asian</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="European">
+            <span class="option-text">European</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="Latino / Hispanic">
+            <span class="option-text">Latino / Hispanic</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="Middle Eastern">
+            <span class="option-text">Middle Eastern</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="South Asian">
+            <span class="option-text">South Asian</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="Mixed ethnicity">
+            <span class="option-text">Mixed ethnicity – describe below</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="White">
+            <span class="option-text">White</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="African American / Black">
+            <span class="option-text">African American / Black</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q5_free" placeholder="Describe ethnicity or facial characteristics" />
+        </div>
+      </div>
+
+      <!-- (6) Emotion / expression -->
+      <div class="question" data-question="What emotion or expression should the person show?">
+        <div class="question-title">(6) What emotion or expression should the person show?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q6" value="Neutral / natural">
+            <span class="option-text">Neutral / natural</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q6" value="Smiling">
+            <span class="option-text">Smiling</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q6" value="Thoughtful / reflective">
+            <span class="option-text">Thoughtful / reflective</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q6" value="Serious / intense">
+            <span class="option-text">Serious / intense</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q6" value="Joyful / laughing">
+            <span class="option-text">Joyful / laughing</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q6" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q6_free" placeholder="Describe the expression" />
+        </div>
+      </div>
+
+      <!-- (7) Facial features -->
+      <div class="question" data-question="What facial features should the person have?">
+        <div class="question-title">(7) What facial features should the person have?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q7" value="Soft and rounded features">
+            <span class="option-text">Soft and rounded features</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="Sharp and angular features">
+            <span class="option-text">Sharp and angular features</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="High cheekbones">
+            <span class="option-text">High cheekbones</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="Freckles">
+            <span class="option-text">Freckles</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="Complexion">
+            <span class="option-text">Complexion – describe below</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="Prominent jawline">
+            <span class="option-text">Prominent jawline</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="Distinctive nose shape">
+            <span class="option-text">Distinctive nose shape</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q7" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q7_free" placeholder="Describe facial features or complexion" />
+        </div>
+      </div>
+
+      <!-- (8) Stature -->
+      <div class="question" data-question="What is the person’s overall stature?">
+        <div class="question-title">(8) What is the person’s overall stature?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q8" value="Petite / small frame">
+            <span class="option-text">Petite / small frame</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q8" value="Average build">
+            <span class="option-text">Average build</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q8" value="Tall / elongated frame">
+            <span class="option-text">Tall / elongated frame</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q8" value="Athletic / fit">
+            <span class="option-text">Athletic / fit</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q8" value="Heavyset">
+            <span class="option-text">Heavyset</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q8" value="Muscular">
+            <span class="option-text">Muscular</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q8" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q8_free" placeholder="Describe overall stature" />
+        </div>
+      </div>
+
+      <!-- (9) Camera framing -->
+      <div class="question" data-question="What is the camera framing?">
+        <div class="question-title">(9) What is the camera framing?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q9" value="Extreme close-up (face only)">
+            <span class="option-text">Extreme close-up (face only)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q9" value="Close-up (head and shoulders)">
+            <span class="option-text">Close-up (head and shoulders)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q9" value="Medium shot (waist up)">
+            <span class="option-text">Medium shot (waist up)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q9" value="Full-body shot">
+            <span class="option-text">Full-body shot</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q9" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q9_free" placeholder="Describe the framing" />
+        </div>
+      </div>
+
+      <!-- (10) Pose -->
+      <div class="question" data-question="What pose or body position should they have?">
+        <div class="question-title">(10) What pose or body position should they have?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q10" value="Standing">
+            <span class="option-text">Standing</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q10" value="Sitting">
+            <span class="option-text">Sitting</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q10" value="Walking">
+            <span class="option-text">Walking</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q10" value="Dynamic/action pose">
+            <span class="option-text">Dynamic/action pose</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q10" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q10_free" placeholder="Describe the pose" />
+        </div>
+      </div>
+
+      <!-- (11) Clothing style -->
+      <div class="question" data-question="What clothing style should they wear?">
+        <div class="question-title">(11) What clothing style should they wear?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q11" value="Casual">
+            <span class="option-text">Casual</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q11" value="Business / professional">
+            <span class="option-text">Business / professional</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q11" value="Elegant / formal">
+            <span class="option-text">Elegant / formal</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q11" value="Outdoors / adventure">
+            <span class="option-text">Outdoors / adventure</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q11" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q11_free" placeholder="Describe clothing style" />
+        </div>
+      </div>
+
+      <!-- (12) Environment / background -->
+      <div class="question" data-question="What is the environment or background?">
+        <div class="question-title">(12) What is the environment or background?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q12" value="Indoor studio">
+            <span class="option-text">Indoor studio</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q12" value="Outdoor nature">
+            <span class="option-text">Outdoor nature</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q12" value="Urban city">
+            <span class="option-text">Urban city</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q12" value="Home or lifestyle interior">
+            <span class="option-text">Home or lifestyle interior</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q12" value="Futuristic or abstract">
+            <span class="option-text">Futuristic or abstract</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q12" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q12_free" placeholder="Describe the environment or background" />
+        </div>
+      </div>
+
+      <!-- (13) Direction of subject's gaze -->
+      <div class="question" data-question="In what direction is the subject looking?">
+        <div class="question-title">(13) In what direction is the subject looking?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q13" value="Directly at the camera">
+            <span class="option-text">Directly at the camera</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q13" value="Slightly to the left">
+            <span class="option-text">Slightly to the left</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q13" value="Slightly to the right">
+            <span class="option-text">Slightly to the right</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q13" value="Upward">
+            <span class="option-text">Upward</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q13" value="Downward">
+            <span class="option-text">Downward</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q13" value="Off into the distance (not facing camera)">
+            <span class="option-text">Off into the distance (not facing camera)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q13" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q13_free" placeholder="Describe the direction of the subject's gaze" />
+        </div>
+      </div>
+
+      <!-- (14) Lighting direction -->
+      <div class="question" data-question="What direction should the lighting come from?">
+        <div class="question-title">(14) What direction should the lighting come from?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q14" value="Front lighting (even illumination)">
+            <span class="option-text">Front lighting (even illumination)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q14" value="Side lighting from the left">
+            <span class="option-text">Side lighting from the left</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q14" value="Side lighting from the right">
+            <span class="option-text">Side lighting from the right</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q14" value="Backlighting / silhouette">
+            <span class="option-text">Backlighting / silhouette</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q14" value="Top lighting (overhead)">
+            <span class="option-text">Top lighting (overhead)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q14" value="Bottom lighting (dramatic)">
+            <span class="option-text">Bottom lighting (dramatic)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q14" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q14_free" placeholder="Describe the lighting direction" />
+        </div>
+      </div>
+
+      <!-- (15) Lighting style -->
+      <div class="question" data-question="What lighting style should be used?">
+        <div class="question-title">(15) What lighting style should be used?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q15" value="Soft natural light">
+            <span class="option-text">Soft natural light</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q15" value="Dramatic side light">
+            <span class="option-text">Dramatic side light</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q15" value="Bright studio lighting">
+            <span class="option-text">Bright studio lighting</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q15" value="Golden hour warm light">
+            <span class="option-text">Golden hour warm light</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q15" value="Moody low-key shadowing">
+            <span class="option-text">Moody low-key shadowing</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q15" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q15_free" placeholder="Describe the lighting style" />
+        </div>
+      </div>
+
+      <!-- (16) Art style / realism -->
+      <div class="question" data-question="What art style or realism level do you want?">
+        <div class="question-title">(16) What art style or realism level do you want?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q16" value="Photorealistic">
+            <span class="option-text">Photorealistic</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q16" value="Cinematic">
+            <span class="option-text">Cinematic</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q16" value="Soft portrait photography">
+            <span class="option-text">Soft portrait photography</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q16" value="Oil painting">
+            <span class="option-text">Oil painting</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q16" value="Watercolor">
+            <span class="option-text">Watercolor</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q16" value="Pencil sketch">
+            <span class="option-text">Pencil sketch</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q16" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q16_free" placeholder="Describe the art style or realism level" />
+        </div>
+      </div>
+
+      <!-- (17) Lens style / technical -->
+      <div class="question" data-question="What lens style or technical details should apply?">
+        <div class="question-title">(17) What lens style or technical details should apply?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q17" value="Shallow depth of field (blurry background)">
+            <span class="option-text">Shallow depth of field (blurry background)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q17" value="Sharp detail throughout">
+            <span class="option-text">Sharp detail throughout</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q17" value="Macro lens look">
+            <span class="option-text">Macro lens look</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q17" value="Wide-angle environmental portrait">
+            <span class="option-text">Wide-angle environmental portrait</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q17" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q17_free" placeholder="Describe lens style or technical details" />
+        </div>
+      </div>
+
+      <!-- (18) Aspect ratio -->
+      <div class="question" data-question="What aspect ratio should the final image use?">
+        <div class="question-title">(18) What aspect ratio should the final image use?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q18" value="Square (1:1)">
+            <span class="option-text">Square (1:1)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q18" value="Portrait (4:5)">
+            <span class="option-text">Portrait (4:5)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q18" value="Portrait (3:4)">
+            <span class="option-text">Portrait (3:4)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q18" value="Landscape (16:9)">
+            <span class="option-text">Landscape (16:9)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q18" value="Landscape (3:2)">
+            <span class="option-text">Landscape (3:2)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q18" value="Ultra-wide (2:1)">
+            <span class="option-text">Ultra-wide (2:1)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q18" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q18_free" placeholder="Describe the aspect ratio" />
+        </div>
+      </div>
+
+      <!-- (19) Additional elements -->
+      <div class="question" data-question="Any additional elements to include?">
+        <div class="question-title">(19) Any additional elements to include?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q19" value="None">
+            <span class="option-text">None</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q19" value="Props">
+            <span class="option-text">Props (glasses, hat, backpack, etc.) – describe below</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q19" value="Motion effects">
+            <span class="option-text">Motion effects (wind, particles, rain, etc.) – describe below</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q19" value="Background storytelling elements">
+            <span class="option-text">Background storytelling elements – describe below</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q19" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q19_free" placeholder="Describe extra elements or storytelling details" />
+        </div>
+      </div>
+
+      <!-- (20) Elements to avoid -->
+      <div class="question" data-question="Any elements to avoid?">
+        <div class="question-title">(20) Any elements to avoid?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q20" value="Over-saturated colors">
+            <span class="option-text">Over-saturated colors</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q20" value="Harsh shadows">
+            <span class="option-text">Harsh shadows</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q20" value="Busy backgrounds">
+            <span class="option-text">Busy backgrounds</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q20" value="Unrealistic skin smoothing">
+            <span class="option-text">Unrealistic skin smoothing</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q20" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q20_free" placeholder="Describe anything you want to avoid" />
+        </div>
+      </div>
+
+      <!-- (21) Tone / mood -->
+      <div class="question" data-question="What is the tone or mood of the overall image?">
+        <div class="question-title">(21) What is the tone or mood of the overall image?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q21" value="Warm and inviting">
+            <span class="option-text">Warm and inviting</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q21" value="Clean and professional">
+            <span class="option-text">Clean and professional</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q21" value="Dramatic and bold">
+            <span class="option-text">Dramatic and bold</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q21" value="Soft and emotional">
+            <span class="option-text">Soft and emotional</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q21" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="q21_free" placeholder="Describe the tone or mood" />
+        </div>
+      </div>
+
+      <!-- (22) Anything else -->
+      <div class="question" data-question="Is there anything else you wish to describe?">
+        <div class="question-title">(22) Is there anything else you wish to describe?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q22" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+        </div>
+        <textarea class="free-input" id="extraDescription" name="q22_free" placeholder="Add any extra notes or details here"></textarea>
+      </div>
+
+      <!-- Ready for summary -->
+      <div class="question" data-question="Are you ready for a summary of your responses?">
+        <div class="question-title">Are you ready for a summary of your responses that can be used by your favorite AI bot to generate a comprehensive prompt?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="ready" value="Yes">
+            <span class="option-text">Yes</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="ready" value="No">
+            <span class="option-text">No</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="ready" value="Free-form">
+            <span class="option-text">Free-form description</span>
+          </label>
+          <input class="free-input" type="text" name="ready_free" placeholder="Describe your preference" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" id="generateSummary">
+          Generate Summary for AI Prompt
+        </button>
+        <div class="hint">
+          Click “Generate Summary” after selecting “Yes” above. You can copy the summary into your favorite AI image tool.
+        </div>
+      </div>
+    </form>
+
+    <div class="summary-section">
+      <h2>Summary of Your Responses (for AI prompt)</h2>
+      <textarea id="summaryText" placeholder="Your summary will appear here after you click &quot;Generate Summary&quot;."></textarea>
+      <div class="hint">
+        Tip: Copy this text and paste it into your AI image generator as your prompt.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("generateSummary").addEventListener("click", function () {
+      const readyYes = document.querySelector('input[name="ready"][value="Yes"]:checked');
+      const readyFree = document.querySelector('input[name="ready"][value="Free-form"]:checked');
+      const readyFreeText = document.querySelector('input[name="ready_free"]')?.value.trim();
+
+      if (!readyYes && !readyFree) {
+        alert("Please indicate that you are ready for a summary (select Yes or describe your preference).");
+        return;
+      }
+
+      const questions = document.querySelectorAll(".question[data-question]");
+      const lines = [];
+
+      questions.forEach((q, index) => {
+        const label = q.getAttribute("data-question");
+        const radios = q.querySelectorAll('input[type="radio"][name^="q"]');
+        if (!radios.length) return;
+
+        const name = radios[0].name;
+        const checked = q.querySelector('input[type="radio"][name="' + name + '"]:checked');
+
+        let answerText = "";
+        if (checked) {
+          if (checked.value === "Free-form") {
+            const free = q.querySelector('input[name="' + name + '_free"]') ||
+                         q.querySelector('textarea[name="' + name + '_free"]');
+            answerText = free && free.value.trim()
+              ? free.value.trim()
+              : "Free-form (no additional description provided)";
+          } else {
+            answerText = checked.value;
+            const free = q.querySelector('input[name="' + name + '_free"]') ||
+                         q.querySelector('textarea[name="' + name + '_free"]');
+            if (free && free.value.trim()) {
+              answerText += " — " + free.value.trim();
+            }
+          }
+        } else {
+          const freeOnly = q.querySelector('textarea[name="' + name + '_free"]');
+          if (freeOnly && freeOnly.value.trim()) {
+            answerText = freeOnly.value.trim();
+          } else {
+            return; // skip unanswered
+          }
+        }
+
+        const qNumberMatch = q.querySelector(".question-title")?.textContent.match(/^\((\d+)\)/);
+        const qNumber = qNumberMatch ? qNumberMatch[1] : (index + 1);
+
+        lines.push(qNumber + ". " + label + " — " + answerText);
+      });
+
+      const extra = document.getElementById("extraDescription");
+      if (extra && extra.value.trim()) {
+        lines.push("Additional description: " + extra.value.trim());
+      }
+
+      if (!lines.length) {
+        alert("No responses found. Please answer at least one question before generating a summary.");
+        return;
+      }
+
+      const summary =
+        "Comprehensive people-image prompt based on the following choices:\n\n" +
+        lines.join("\n") +
+        "\n\nUse these details to generate a single coherent image prompt.";
+
+      const summaryBox = document.getElementById("summaryText");
+      summaryBox.value = summary;
+      summaryBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>
