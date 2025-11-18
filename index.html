@@ -38,23 +38,40 @@
       border: 1px solid #e5e7eb;
     }
 
+    .container-header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
     h1 {
       margin-top: 0;
-      font-size: 1.6rem;
-      margin-bottom: 0.25rem;
+      font-size: 1.9rem;
+      margin-bottom: 0.15rem;
     }
 
     .tagline {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: #111827;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
 
     .subtitle {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      color: #6b7280;
+      max-width: 580px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .section-heading {
+      margin-top: 1.5rem;
+      margin-bottom: 0.35rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #111827;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
     }
 
     .question {
@@ -102,6 +119,7 @@
 
     .option-text {
       font-size: 0.95rem;
+      line-height: 1.3;
     }
 
     .free-input {
@@ -143,39 +161,22 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
-    }
-
-    .btn-primary {
       background: var(--accent);
       color: white;
       box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover,
+    .btn-secondary:hover {
       transform: translateY(-1px);
       box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
       background: #1d4ed8;
     }
 
-    .btn-primary:active {
-      transform: translateY(0);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-secondary {
-      background: #e5e7eb;
-      color: #111827;
-    }
-
-    .btn-secondary:hover {
-      background: #d4d4d8;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(15,23,42,0.12);
-    }
-
+    .btn-primary:active,
     .btn-secondary:active {
       transform: translateY(0);
-      box-shadow: 0 3px 8px rgba(15,23,42,0.12);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
     .summary-section {
@@ -225,13 +226,18 @@
 </head>
 <body>
   <div class="container">
-    <h1>People Image Generation Prompt Tool</h1>
-    <div class="tagline">Create an amazing one person image.</div>
-    <div class="subtitle">
-      QUESTIONS – (Click on the circles next to your choices). For any free-form answers, type your own wording in the box.
+    <div class="container-header">
+      <h1>People Image Generation Prompt Tool</h1>
+      <div class="tagline">Create an amazing one person image.</div>
+      <div class="subtitle">
+        QUESTIONS – (Click on the circles next to your choices). For any free-form answers, type your own wording in the box.
+      </div>
     </div>
 
     <form id="promptForm">
+      <!-- Section: Subject basics -->
+      <h2 class="section-heading">Subject basics:</h2>
+
       <!-- (1) Purpose -->
       <div class="question" data-question="What is the purpose or point of the image?">
         <div class="question-title">(1) What is the purpose or point of the image?</div>
@@ -364,6 +370,9 @@
         </div>
       </div>
 
+      <!-- Section: Face & body -->
+      <h2 class="section-heading">Face &amp; body:</h2>
+
       <!-- (5) Ethnicity / facial characteristics -->
       <div class="question" data-question="What is the ethnicity or facial characteristics?">
         <div class="question-title">(5) What is the ethnicity or facial characteristics?</div>
@@ -484,9 +493,97 @@
         </div>
       </div>
 
-      <!-- (8) Stature -->
+      <!-- (8) Hair color -->
+      <div class="question" data-question="What color hair does the subject have?">
+        <div class="question-title">(8) What color hair does the subject have?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q23" value="Black hair">
+            <span class="option-text">Black</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="Blonde hair">
+            <span class="option-text">Blonde</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="Brown hair">
+            <span class="option-text">Brown</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="Gray / Silver hair">
+            <span class="option-text">Gray / Silver</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="Red / Auburn hair">
+            <span class="option-text">Red / Auburn</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="White hair">
+            <span class="option-text">White</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="Dyed / unconventional color">
+            <span class="option-text">Dyed / unconventional color (blue, pink, purple, etc.)</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q23" value="Salt-and-pepper hair">
+            <span class="option-text">Salt-and-pepper</span>
+          </label>
+          <!-- Free-form inline -->
+          <label class="option">
+            <input type="radio" name="q23" value="Free-form">
+            <input class="free-input free-inline" type="text" name="q23_free" placeholder="Describe the hair color in your own words" />
+          </label>
+        </div>
+      </div>
+
+      <!-- (9) Hairstyle -->
+      <div class="question" data-question="What hairstyle does the subject have?">
+        <div class="question-title">(9) What hairstyle does the subject have?</div>
+        <div class="options">
+          <label class="option">
+            <input type="radio" name="q24" value="Short and neat hairstyle">
+            <span class="option-text">Short and neat</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Medium length hairstyle">
+            <span class="option-text">Medium length</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Long and straight hair">
+            <span class="option-text">Long and straight</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Long and wavy hair">
+            <span class="option-text">Long and wavy</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Curly or coiled hair">
+            <span class="option-text">Curly or coiled</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Bald or shaved head">
+            <span class="option-text">Bald or shaved</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Ponytail or tied back hair">
+            <span class="option-text">Ponytail or tied back</span>
+          </label>
+          <label class="option">
+            <input type="radio" name="q24" value="Messy or windblown hair">
+            <span class="option-text">Messy / windblown</span>
+          </label>
+          <!-- Free-form inline -->
+          <label class="option">
+            <input type="radio" name="q24" value="Free-form">
+            <input class="free-input free-inline" type="text" name="q24_free" placeholder="Describe the hairstyle in your own words" />
+          </label>
+        </div>
+      </div>
+
+      <!-- (10) Stature -->
       <div class="question" data-question="What is the person’s overall stature?">
-        <div class="question-title">(8) What is the person’s overall stature?</div>
+        <div class="question-title">(10) What is the person’s overall stature?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q8" value="Petite / small frame">
@@ -520,9 +617,12 @@
         </div>
       </div>
 
-      <!-- (9) Camera framing -->
+      <!-- Section: Framing & pose -->
+      <h2 class="section-heading">Framing &amp; pose:</h2>
+
+      <!-- (11) Camera framing -->
       <div class="question" data-question="What is the camera framing?">
-        <div class="question-title">(9) What is the camera framing?</div>
+        <div class="question-title">(11) What is the camera framing?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q9" value="Extreme close-up (face only)">
@@ -548,9 +648,9 @@
         </div>
       </div>
 
-      <!-- (10) Pose -->
+      <!-- (12) Pose -->
       <div class="question" data-question="What pose or body position should they have?">
-        <div class="question-title">(10) What pose or body position should they have?</div>
+        <div class="question-title">(12) What pose or body position should they have?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q10" value="Standing">
@@ -576,9 +676,9 @@
         </div>
       </div>
 
-      <!-- (11) Clothing style -->
+      <!-- (13) Clothing style -->
       <div class="question" data-question="What clothing style should they wear?">
-        <div class="question-title">(11) What clothing style should they wear?</div>
+        <div class="question-title">(13) What clothing style should they wear?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q11" value="Casual">
@@ -604,9 +704,12 @@
         </div>
       </div>
 
-      <!-- (12) Environment / background -->
+      <!-- Section: Environment & lighting -->
+      <h2 class="section-heading">Environment &amp; lighting:</h2>
+
+      <!-- (14) Environment / background -->
       <div class="question" data-question="What is the environment or background?">
-        <div class="question-title">(12) What is the environment or background?</div>
+        <div class="question-title">(14) What is the environment or background?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q12" value="Indoor studio">
@@ -636,9 +739,9 @@
         </div>
       </div>
 
-      <!-- (13) Direction of subject's gaze -->
+      <!-- (15) Direction of subject's gaze -->
       <div class="question" data-question="In what direction is the subject looking?">
-        <div class="question-title">(13) In what direction is the subject looking?</div>
+        <div class="question-title">(15) In what direction is the subject looking?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q13" value="Directly at the camera">
@@ -672,9 +775,9 @@
         </div>
       </div>
 
-      <!-- (14) Lighting direction -->
+      <!-- (16) Lighting direction -->
       <div class="question" data-question="What direction should the lighting come from?">
-        <div class="question-title">(14) What direction should the lighting come from?</div>
+        <div class="question-title">(16) What direction should the lighting come from?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q14" value="Front lighting (even illumination)">
@@ -708,9 +811,9 @@
         </div>
       </div>
 
-      <!-- (15) Lighting style -->
+      <!-- (17) Lighting style -->
       <div class="question" data-question="What lighting style should be used?">
-        <div class="question-title">(15) What lighting style should be used?</div>
+        <div class="question-title">(17) What lighting style should be used?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q15" value="Soft natural light">
@@ -740,9 +843,12 @@
         </div>
       </div>
 
-      <!-- (16) Art style / realism -->
+      <!-- Section: Style & technical -->
+      <h2 class="section-heading">Style &amp; technical:</h2>
+
+      <!-- (18) Art style / realism -->
       <div class="question" data-question="What art style or realism level do you want?">
-        <div class="question-title">(16) What art style or realism level do you want?</div>
+        <div class="question-title">(18) What art style or realism level do you want?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q16" value="Photorealistic">
@@ -776,9 +882,9 @@
         </div>
       </div>
 
-      <!-- (17) Lens style / technical -->
+      <!-- (19) Lens style / technical -->
       <div class="question" data-question="What lens style or technical details should apply?">
-        <div class="question-title">(17) What lens style or technical details should apply?</div>
+        <div class="question-title">(19) What lens style or technical details should apply?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q17" value="Shallow depth of field (blurry background)">
@@ -804,9 +910,9 @@
         </div>
       </div>
 
-      <!-- (18) Aspect ratio -->
+      <!-- (20) Aspect ratio -->
       <div class="question" data-question="What aspect ratio should the final image use?">
-        <div class="question-title">(18) What aspect ratio should the final image use?</div>
+        <div class="question-title">(20) What aspect ratio should the final image use?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q18" value="Square (1:1)">
@@ -840,9 +946,12 @@
         </div>
       </div>
 
-      <!-- (19) Additional elements -->
+      <!-- Section: Extras & mood -->
+      <h2 class="section-heading">Extras &amp; mood:</h2>
+
+      <!-- (21) Additional elements -->
       <div class="question" data-question="Any additional elements to include?">
-        <div class="question-title">(19) Any additional elements to include?</div>
+        <div class="question-title">(21) Any additional elements to include?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q19" value="None">
@@ -868,9 +977,9 @@
         </div>
       </div>
 
-      <!-- (20) Elements to avoid -->
+      <!-- (22) Elements to avoid -->
       <div class="question" data-question="Any elements to avoid?">
-        <div class="question-title">(20) Any elements to avoid?</div>
+        <div class="question-title">(22) Any elements to avoid?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q20" value="Over-saturated colors">
@@ -896,9 +1005,9 @@
         </div>
       </div>
 
-      <!-- (21) Tone / mood -->
+      <!-- (23) Tone / mood -->
       <div class="question" data-question="What is the tone or mood of the overall image?">
-        <div class="question-title">(21) What is the tone or mood of the overall image?</div>
+        <div class="question-title">(23) What is the tone or mood of the overall image?</div>
         <div class="options">
           <label class="option">
             <input type="radio" name="q21" value="Warm and inviting">
@@ -924,9 +1033,9 @@
         </div>
       </div>
 
-      <!-- (22) Anything else -->
+      <!-- (24) Anything else -->
       <div class="question" data-question="Is there anything else you wish to describe?">
-        <div class="question-title">(22) Is there anything else you wish to describe?</div>
+        <div class="question-title">(24) Is there anything else you wish to describe?</div>
         <div class="options">
           <!-- Free-form inline with textarea -->
           <label class="option">
