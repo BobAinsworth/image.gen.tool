@@ -111,7 +111,7 @@
       background: #f3f4ff;
     }
 
-    .option input[type="radio"] {
+    .option input[type="checkbox"] {
       accent-color: var(--accent);
       cursor: pointer;
       flex-shrink: 0;
@@ -234,10 +234,11 @@
     <div class="container-header">
       <h1>People Image Generation Prompt Tool</h1>
       <div class="tagline">Create an amazing one person image.</div>
+      <div class="tagline">(No coding or prompting experience necessary)</div>
       <div class="subtitle">
-     Click on the circles next to your choices or type your own wording in the box.
+        Click on the circles (OK to choose more than one) and/or type your own wording into the box.
       </div>
-    </div> 
+    </div>
 
     <form id="promptForm">
       <!-- Section: Subject basics -->
@@ -248,32 +249,32 @@
         <div class="question-title">(1) What is the purpose or point of the image?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q1" value="Portrait for personal use">
+            <input type="checkbox" name="q1" value="Portrait for personal use">
             <span class="option-text">Portrait for personal use</span>
           </label>
           <label class="option">
-            <input type="radio" name="q1" value="Professional or business profile">
+            <input type="checkbox" name="q1" value="Professional or business profile">
             <span class="option-text">Professional or business profile</span>
           </label>
           <label class="option">
-            <input type="radio" name="q1" value="Marketing / promotional image">
+            <input type="checkbox" name="q1" value="Marketing / promotional image">
             <span class="option-text">Marketing / promotional image</span>
           </label>
           <label class="option">
-            <input type="radio" name="q1" value="Artistic or conceptual piece">
+            <input type="checkbox" name="q1" value="Artistic or conceptual piece">
             <span class="option-text">Artistic or conceptual piece</span>
           </label>
           <label class="option">
-            <input type="radio" name="q1" value="Storytelling or narrative moment">
+            <input type="checkbox" name="q1" value="Storytelling or narrative moment">
             <span class="option-text">Storytelling or narrative moment</span>
           </label>
           <label class="option">
-            <input type="radio" name="q1" value="Social media content">
+            <input type="checkbox" name="q1" value="Social media content">
             <span class="option-text">Social media content</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q1" value="Free-form">
+            <input type="checkbox" name="q1" value="Free-form">
             <input class="free-input free-inline" type="text" name="q1_free" placeholder="Describe the purpose in your own words" />
           </label>
         </div>
@@ -284,32 +285,32 @@
         <div class="question-title">(2) Who is the intended audience for the image?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q2" value="General public">
+            <input type="checkbox" name="q2" value="General public">
             <span class="option-text">General public</span>
           </label>
           <label class="option">
-            <input type="radio" name="q2" value="Professional audience (industry, business, LinkedIn, etc.)">
+            <input type="checkbox" name="q2" value="Professional audience (industry, business, LinkedIn, etc.)">
             <span class="option-text">Professional audience (industry, business, LinkedIn, etc.)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q2" value="Creative community (artists, photographers, designers)">
+            <input type="checkbox" name="q2" value="Creative community (artists, photographers, designers)">
             <span class="option-text">Creative community (artists, photographers, designers)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q2" value="Friends and family">
+            <input type="checkbox" name="q2" value="Friends and family">
             <span class="option-text">Friends and family</span>
           </label>
           <label class="option">
-            <input type="radio" name="q2" value="Academic or educational audience">
+            <input type="checkbox" name="q2" value="Academic or educational audience">
             <span class="option-text">Academic or educational audience</span>
           </label>
           <label class="option">
-            <input type="radio" name="q2" value="Social media followers">
+            <input type="checkbox" name="q2" value="Social media followers">
             <span class="option-text">Social media followers</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q2" value="Free-form">
+            <input type="checkbox" name="q2" value="Free-form">
             <input class="free-input free-inline" type="text" name="q2_free" placeholder="Describe the audience in your own words" />
           </label>
         </div>
@@ -320,28 +321,32 @@
         <div class="question-title">(3) What is the age category of the person?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q3" value="Child">
+            <input type="checkbox" name="q3" value="Child">
             <span class="option-text">Child</span>
           </label>
           <label class="option">
-            <input type="radio" name="q3" value="Teen">
+            <input type="checkbox" name="q3" value="Teen">
             <span class="option-text">Teen</span>
           </label>
           <label class="option">
-            <input type="radio" name="q3" value="Young adult">
+            <input type="checkbox" name="q3" value="Young adult">
             <span class="option-text">Young adult</span>
           </label>
           <label class="option">
-            <input type="radio" name="q3" value="Adult">
+            <input type="checkbox" name="q3" value="Adult">
             <span class="option-text">Adult</span>
           </label>
           <label class="option">
-            <input type="radio" name="q3" value="Senior">
+            <input type="checkbox" name="q3" value="Middle aged">
+            <span class="option-text">Middle aged</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q3" value="Senior">
             <span class="option-text">Senior</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q3" value="Free-form">
+            <input type="checkbox" name="q3" value="Free-form">
             <input class="free-input free-inline" type="text" name="q3_free" placeholder="Describe the age in your own words" />
           </label>
         </div>
@@ -352,24 +357,24 @@
         <div class="question-title">(4) What is the gender presentation?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q4" value="Female">
+            <input type="checkbox" name="q4" value="Female">
             <span class="option-text">Female</span>
           </label>
           <label class="option">
-            <input type="radio" name="q4" value="Male">
+            <input type="checkbox" name="q4" value="Male">
             <span class="option-text">Male</span>
           </label>
           <label class="option">
-            <input type="radio" name="q4" value="Androgynous">
+            <input type="checkbox" name="q4" value="Androgynous">
             <span class="option-text">Androgynous</span>
           </label>
           <label class="option">
-            <input type="radio" name="q4" value="Nonbinary">
+            <input type="checkbox" name="q4" value="Nonbinary">
             <span class="option-text">Nonbinary</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q4" value="Free-form">
+            <input type="checkbox" name="q4" value="Free-form">
             <input class="free-input free-inline" type="text" name="q4_free" placeholder="Describe the gender presentation" />
           </label>
         </div>
@@ -383,44 +388,44 @@
         <div class="question-title">(5) What is the ethnicity or facial characteristics?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q5" value="African / Afro-Caribbean">
+            <input type="checkbox" name="q5" value="African / Afro-Caribbean">
             <span class="option-text">African / Afro-Caribbean</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="East Asian">
+            <input type="checkbox" name="q5" value="East Asian">
             <span class="option-text">East Asian</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="European">
+            <input type="checkbox" name="q5" value="European">
             <span class="option-text">European</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="Latino / Hispanic">
+            <input type="checkbox" name="q5" value="Latino / Hispanic">
             <span class="option-text">Latino / Hispanic</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="Middle Eastern">
+            <input type="checkbox" name="q5" value="Middle Eastern">
             <span class="option-text">Middle Eastern</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="South Asian">
+            <input type="checkbox" name="q5" value="South Asian">
             <span class="option-text">South Asian</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="Mixed ethnicity">
+            <input type="checkbox" name="q5" value="Mixed ethnicity">
             <span class="option-text">Mixed ethnicity – describe below</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="White">
+            <input type="checkbox" name="q5" value="White">
             <span class="option-text">White</span>
           </label>
           <label class="option">
-            <input type="radio" name="q5" value="African American / Black">
+            <input type="checkbox" name="q5" value="African American / Black">
             <span class="option-text">African American / Black</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q5" value="Free-form">
+            <input type="checkbox" name="q5" value="Free-form">
             <input class="free-input free-inline" type="text" name="q5_free" placeholder="Describe ethnicity or facial characteristics" />
           </label>
         </div>
@@ -431,28 +436,28 @@
         <div class="question-title">(6) What emotion or expression should the person show?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q6" value="Neutral / natural">
+            <input type="checkbox" name="q6" value="Neutral / natural">
             <span class="option-text">Neutral / natural</span>
           </label>
           <label class="option">
-            <input type="radio" name="q6" value="Smiling">
+            <input type="checkbox" name="q6" value="Smiling">
             <span class="option-text">Smiling</span>
           </label>
           <label class="option">
-            <input type="radio" name="q6" value="Thoughtful / reflective">
+            <input type="checkbox" name="q6" value="Thoughtful / reflective">
             <span class="option-text">Thoughtful / reflective</span>
           </label>
           <label class="option">
-            <input type="radio" name="q6" value="Serious / intense">
+            <input type="checkbox" name="q6" value="Serious / intense">
             <span class="option-text">Serious / intense</span>
           </label>
           <label class="option">
-            <input type="radio" name="q6" value="Joyful / laughing">
+            <input type="checkbox" name="q6" value="Joyful / laughing">
             <span class="option-text">Joyful / laughing</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q6" value="Free-form">
+            <input type="checkbox" name="q6" value="Free-form">
             <input class="free-input free-inline" type="text" name="q6_free" placeholder="Describe the expression" />
           </label>
         </div>
@@ -463,160 +468,212 @@
         <div class="question-title">(7) What facial features should the person have?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q7" value="Soft and rounded features">
+            <input type="checkbox" name="q7" value="Soft and rounded features">
             <span class="option-text">Soft and rounded features</span>
           </label>
           <label class="option">
-            <input type="radio" name="q7" value="Sharp and angular features">
+            <input type="checkbox" name="q7" value="Sharp and angular features">
             <span class="option-text">Sharp and angular features</span>
           </label>
           <label class="option">
-            <input type="radio" name="q7" value="High cheekbones">
+            <input type="checkbox" name="q7" value="High cheekbones">
             <span class="option-text">High cheekbones</span>
           </label>
           <label class="option">
-            <input type="radio" name="q7" value="Freckles">
+            <input type="checkbox" name="q7" value="Freckles">
             <span class="option-text">Freckles</span>
           </label>
           <label class="option">
-            <input type="radio" name="q7" value="Complexion">
+            <input type="checkbox" name="q7" value="Complexion">
             <span class="option-text">Complexion – describe below</span>
           </label>
           <label class="option">
-            <input type="radio" name="q7" value="Prominent jawline">
+            <input type="checkbox" name="q7" value="Prominent jawline">
             <span class="option-text">Prominent jawline</span>
           </label>
           <label class="option">
-            <input type="radio" name="q7" value="Distinctive nose shape">
+            <input type="checkbox" name="q7" value="Distinctive nose shape">
             <span class="option-text">Distinctive nose shape</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q7" value="Soft gentle facial features">
+            <span class="option-text">Soft gentle facial features</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q7" value="Refined / elegant facial features">
+            <span class="option-text">Refined / elegant facial features</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q7" value="Free-form">
+            <input type="checkbox" name="q7" value="Free-form">
             <input class="free-input free-inline" type="text" name="q7_free" placeholder="Describe facial features or complexion" />
           </label>
         </div>
       </div>
 
-      <!-- (8) Hair color -->
-      <div class="question" data-question="What color hair does the subject have?">
-        <div class="question-title">(8) What color hair does the subject have?</div>
+      <!-- (8) Physical-appearance choices -->
+      <div class="question" data-question="Physical-appearance choices">
+        <div class="question-title">(8) Physical-appearance choices</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q23" value="Black hair">
+            <input type="checkbox" name="q25" value="Attractive / good-looking">
+            <span class="option-text">Attractive / good-looking</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Handsome">
+            <span class="option-text">Handsome</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Beautiful">
+            <span class="option-text">Beautiful</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Cute / youthful features">
+            <span class="option-text">Cute / youthful features</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Rugged / weathered features">
+            <span class="option-text">Rugged / weathered features</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Refined / elegant stature">
+            <span class="option-text">Refined / elegant stature</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Healthy, vibrant appearance">
+            <span class="option-text">Healthy, vibrant appearance</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q25" value="Distinguished and mature">
+            <span class="option-text">Distinguished and mature</span>
+          </label>
+          <!-- Free-form inline -->
+          <label class="option">
+            <input type="checkbox" name="q25" value="Free-form">
+            <input class="free-input free-inline" type="text" name="q25_free" placeholder="Describe overall physical appearance" />
+          </label>
+        </div>
+      </div>
+
+      <!-- (9) Hair color -->
+      <div class="question" data-question="What color hair does the subject have?">
+        <div class="question-title">(9) What color hair does the subject have?</div>
+        <div class="options">
+          <label class="option">
+            <input type="checkbox" name="q23" value="Black hair">
             <span class="option-text">Black</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="Blonde hair">
+            <input type="checkbox" name="q23" value="Blonde hair">
             <span class="option-text">Blonde</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="Brown hair">
+            <input type="checkbox" name="q23" value="Brown hair">
             <span class="option-text">Brown</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="Gray / Silver hair">
+            <input type="checkbox" name="q23" value="Gray / Silver hair">
             <span class="option-text">Gray / Silver</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="Red / Auburn hair">
+            <input type="checkbox" name="q23" value="Red / Auburn hair">
             <span class="option-text">Red / Auburn</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="White hair">
+            <input type="checkbox" name="q23" value="White hair">
             <span class="option-text">White</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="Dyed / unconventional color">
+            <input type="checkbox" name="q23" value="Dyed / unconventional color">
             <span class="option-text">Dyed / unconventional color (blue, pink, purple, etc.)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q23" value="Salt-and-pepper hair">
+            <input type="checkbox" name="q23" value="Salt-and-pepper hair">
             <span class="option-text">Salt-and-pepper</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q23" value="Free-form">
+            <input type="checkbox" name="q23" value="Free-form">
             <input class="free-input free-inline" type="text" name="q23_free" placeholder="Describe the hair color in your own words" />
           </label>
         </div>
       </div>
 
-      <!-- (9) Hairstyle -->
+      <!-- (10) Hairstyle -->
       <div class="question" data-question="What hairstyle does the subject have?">
-        <div class="question-title">(9) What hairstyle does the subject have?</div>
+        <div class="question-title">(10) What hairstyle does the subject have?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q24" value="Short and neat hairstyle">
+            <input type="checkbox" name="q24" value="Short and neat hairstyle">
             <span class="option-text">Short and neat</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Medium length hairstyle">
+            <input type="checkbox" name="q24" value="Medium length hairstyle">
             <span class="option-text">Medium length</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Long and straight hair">
+            <input type="checkbox" name="q24" value="Long and straight hair">
             <span class="option-text">Long and straight</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Long and wavy hair">
+            <input type="checkbox" name="q24" value="Long and wavy hair">
             <span class="option-text">Long and wavy</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Curly or coiled hair">
+            <input type="checkbox" name="q24" value="Curly or coiled hair">
             <span class="option-text">Curly or coiled</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Bald or shaved head">
+            <input type="checkbox" name="q24" value="Bald or shaved head">
             <span class="option-text">Bald or shaved</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Ponytail or tied back hair">
+            <input type="checkbox" name="q24" value="Ponytail or tied back hair">
             <span class="option-text">Ponytail or tied back</span>
           </label>
           <label class="option">
-            <input type="radio" name="q24" value="Messy or windblown hair">
+            <input type="checkbox" name="q24" value="Messy or windblown hair">
             <span class="option-text">Messy / windblown</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q24" value="Free-form">
+            <input type="checkbox" name="q24" value="Free-form">
             <input class="free-input free-inline" type="text" name="q24_free" placeholder="Describe the hairstyle in your own words" />
           </label>
         </div>
       </div>
 
-      <!-- (10) Stature -->
+      <!-- (11) Stature -->
       <div class="question" data-question="What is the person’s overall stature?">
-        <div class="question-title">(10) What is the person’s overall stature?</div>
+        <div class="question-title">(11) What is the person’s overall stature?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q8" value="Petite / small frame">
+            <input type="checkbox" name="q8" value="Petite / small frame">
             <span class="option-text">Petite / small frame</span>
           </label>
           <label class="option">
-            <input type="radio" name="q8" value="Average build">
+            <input type="checkbox" name="q8" value="Average build">
             <span class="option-text">Average build</span>
           </label>
           <label class="option">
-            <input type="radio" name="q8" value="Tall / elongated frame">
+            <input type="checkbox" name="q8" value="Tall / elongated frame">
             <span class="option-text">Tall / elongated frame</span>
           </label>
           <label class="option">
-            <input type="radio" name="q8" value="Athletic / fit">
+            <input type="checkbox" name="q8" value="Athletic / fit">
             <span class="option-text">Athletic / fit</span>
           </label>
           <label class="option">
-            <input type="radio" name="q8" value="Heavyset">
+            <input type="checkbox" name="q8" value="Heavyset">
             <span class="option-text">Heavyset</span>
           </label>
           <label class="option">
-            <input type="radio" name="q8" value="Muscular">
+            <input type="checkbox" name="q8" value="Muscular">
             <span class="option-text">Muscular</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q8" value="Free-form">
+            <input type="checkbox" name="q8" value="Free-form">
             <input class="free-input free-inline" type="text" name="q8_free" placeholder="Describe overall stature" />
           </label>
         </div>
@@ -625,85 +682,133 @@
       <!-- Section: Framing & pose -->
       <h2 class="section-heading">Framing &amp; pose:</h2>
 
-      <!-- (11) Camera framing -->
+      <!-- (12) Camera framing -->
       <div class="question" data-question="What is the camera framing?">
-        <div class="question-title">(11) What is the camera framing?</div>
+        <div class="question-title">(12) What is the camera framing?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q9" value="Extreme close-up (face only)">
+            <input type="checkbox" name="q9" value="Extreme close-up (face only)">
             <span class="option-text">Extreme close-up (face only)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q9" value="Close-up (head and shoulders)">
+            <input type="checkbox" name="q9" value="Close-up (head and shoulders)">
             <span class="option-text">Close-up (head and shoulders)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q9" value="Medium shot (waist up)">
+            <input type="checkbox" name="q9" value="Medium shot (waist up)">
             <span class="option-text">Medium shot (waist up)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q9" value="Full-body shot">
+            <input type="checkbox" name="q9" value="Full-body shot">
             <span class="option-text">Full-body shot</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q9" value="Free-form">
+            <input type="checkbox" name="q9" value="Free-form">
             <input class="free-input free-inline" type="text" name="q9_free" placeholder="Describe the framing" />
           </label>
         </div>
       </div>
 
-      <!-- (12) Pose -->
+      <!-- (13) Pose -->
       <div class="question" data-question="What pose or body position should they have?">
-        <div class="question-title">(12) What pose or body position should they have?</div>
+        <div class="question-title">(13) What pose or body position should they have?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q10" value="Standing">
+            <input type="checkbox" name="q10" value="Standing">
             <span class="option-text">Standing</span>
           </label>
           <label class="option">
-            <input type="radio" name="q10" value="Sitting">
+            <input type="checkbox" name="q10" value="Sitting">
             <span class="option-text">Sitting</span>
           </label>
           <label class="option">
-            <input type="radio" name="q10" value="Walking">
+            <input type="checkbox" name="q10" value="Walking">
             <span class="option-text">Walking</span>
           </label>
           <label class="option">
-            <input type="radio" name="q10" value="Dynamic/action pose">
+            <input type="checkbox" name="q10" value="Dynamic/action pose">
             <span class="option-text">Dynamic/action pose</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q10" value="Free-form">
+            <input type="checkbox" name="q10" value="Free-form">
             <input class="free-input free-inline" type="text" name="q10_free" placeholder="Describe the pose" />
           </label>
         </div>
       </div>
 
-      <!-- (13) Clothing style -->
+      <!-- (14) Clothing style -->
       <div class="question" data-question="What clothing style should they wear?">
-        <div class="question-title">(13) What clothing style should they wear?</div>
+        <div class="question-title">(14) What clothing style should they wear?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q11" value="Casual">
+            <input type="checkbox" name="q11" value="Casual">
             <span class="option-text">Casual</span>
           </label>
           <label class="option">
-            <input type="radio" name="q11" value="Business / professional">
+            <input type="checkbox" name="q11" value="Business / professional">
             <span class="option-text">Business / professional</span>
           </label>
           <label class="option">
-            <input type="radio" name="q11" value="Elegant / formal">
+            <input type="checkbox" name="q11" value="Elegant / formal">
             <span class="option-text">Elegant / formal</span>
           </label>
           <label class="option">
-            <input type="radio" name="q11" value="Outdoors / adventure">
+            <input type="checkbox" name="q11" value="Outdoors / adventure">
             <span class="option-text">Outdoors / adventure</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Sporty / athletic wear">
+            <span class="option-text">Sporty / athletic wear</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Streetwear">
+            <span class="option-text">Streetwear</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Vintage / retro">
+            <span class="option-text">Vintage / retro</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Summer / beachwear">
+            <span class="option-text">Summer / beachwear</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Winter / cold-weather clothing">
+            <span class="option-text">Winter / cold-weather clothing</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Smart casual">
+            <span class="option-text">Smart casual</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Bohemian / artistic">
+            <span class="option-text">Bohemian / artistic</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Traditional / cultural attire">
+            <span class="option-text">Traditional / cultural attire</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Formal uniform">
+            <span class="option-text">Formal uniform</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="School / youth style">
+            <span class="option-text">School / youth style</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Minimalist / modern">
+            <span class="option-text">Minimalist / modern</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="q11" value="Luxurious / high fashion">
+            <span class="option-text">Luxurious / high fashion</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q11" value="Free-form">
+            <input type="checkbox" name="q11" value="Free-form">
             <input class="free-input free-inline" type="text" name="q11_free" placeholder="Describe clothing style" />
           </label>
         </div>
@@ -712,137 +817,137 @@
       <!-- Section: Environment & lighting -->
       <h2 class="section-heading">Environment &amp; lighting:</h2>
 
-      <!-- (14) Environment / background -->
+      <!-- (15) Environment / background -->
       <div class="question" data-question="What is the environment or background?">
-        <div class="question-title">(14) What is the environment or background?</div>
+        <div class="question-title">(15) What is the environment or background?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q12" value="Indoor studio">
+            <input type="checkbox" name="q12" value="Indoor studio">
             <span class="option-text">Indoor studio</span>
           </label>
           <label class="option">
-            <input type="radio" name="q12" value="Outdoor nature">
+            <input type="checkbox" name="q12" value="Outdoor nature">
             <span class="option-text">Outdoor nature</span>
           </label>
           <label class="option">
-            <input type="radio" name="q12" value="Urban city">
+            <input type="checkbox" name="q12" value="Urban city">
             <span class="option-text">Urban city</span>
           </label>
           <label class="option">
-            <input type="radio" name="q12" value="Home or lifestyle interior">
+            <input type="checkbox" name="q12" value="Home or lifestyle interior">
             <span class="option-text">Home or lifestyle interior</span>
           </label>
           <label class="option">
-            <input type="radio" name="q12" value="Futuristic or abstract">
+            <input type="checkbox" name="q12" value="Futuristic or abstract">
             <span class="option-text">Futuristic or abstract</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q12" value="Free-form">
+            <input type="checkbox" name="q12" value="Free-form">
             <input class="free-input free-inline" type="text" name="q12_free" placeholder="Describe the environment or background" />
           </label>
         </div>
       </div>
 
-      <!-- (15) Direction of subject's gaze -->
+      <!-- (16) Direction of subject's gaze -->
       <div class="question" data-question="In what direction is the subject looking?">
-        <div class="question-title">(15) In what direction is the subject looking?</div>
+        <div class="question-title">(16) In what direction is the subject looking?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q13" value="Directly at the camera">
+            <input type="checkbox" name="q13" value="Directly at the camera">
             <span class="option-text">Directly at the camera</span>
           </label>
           <label class="option">
-            <input type="radio" name="q13" value="Slightly to the left">
+            <input type="checkbox" name="q13" value="Slightly to the left">
             <span class="option-text">Slightly to the left</span>
           </label>
           <label class="option">
-            <input type="radio" name="q13" value="Slightly to the right">
+            <input type="checkbox" name="q13" value="Slightly to the right">
             <span class="option-text">Slightly to the right</span>
           </label>
           <label class="option">
-            <input type="radio" name="q13" value="Upward">
+            <input type="checkbox" name="q13" value="Upward">
             <span class="option-text">Upward</span>
           </label>
           <label class="option">
-            <input type="radio" name="q13" value="Downward">
+            <input type="checkbox" name="q13" value="Downward">
             <span class="option-text">Downward</span>
           </label>
           <label class="option">
-            <input type="radio" name="q13" value="Off into the distance (not facing camera)">
+            <input type="checkbox" name="q13" value="Off into the distance (not facing camera)">
             <span class="option-text">Off into the distance (not facing camera)</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q13" value="Free-form">
+            <input type="checkbox" name="q13" value="Free-form">
             <input class="free-input free-inline" type="text" name="q13_free" placeholder="Describe the direction of the subject's gaze" />
           </label>
         </div>
       </div>
 
-      <!-- (16) Lighting direction -->
+      <!-- (17) Lighting direction -->
       <div class="question" data-question="What direction should the lighting come from?">
-        <div class="question-title">(16) What direction should the lighting come from?</div>
+        <div class="question-title">(17) What direction should the lighting come from?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q14" value="Front lighting (even illumination)">
+            <input type="checkbox" name="q14" value="Front lighting (even illumination)">
             <span class="option-text">Front lighting (even illumination)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q14" value="Side lighting from the left">
+            <input type="checkbox" name="q14" value="Side lighting from the left">
             <span class="option-text">Side lighting from the left</span>
           </label>
           <label class="option">
-            <input type="radio" name="q14" value="Side lighting from the right">
+            <input type="checkbox" name="q14" value="Side lighting from the right">
             <span class="option-text">Side lighting from the right</span>
           </label>
           <label class="option">
-            <input type="radio" name="q14" value="Backlighting / silhouette">
+            <input type="checkbox" name="q14" value="Backlighting / silhouette">
             <span class="option-text">Backlighting / silhouette</span>
           </label>
           <label class="option">
-            <input type="radio" name="q14" value="Top lighting (overhead)">
+            <input type="checkbox" name="q14" value="Top lighting (overhead)">
             <span class="option-text">Top lighting (overhead)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q14" value="Bottom lighting (dramatic)">
+            <input type="checkbox" name="q14" value="Bottom lighting (dramatic)">
             <span class="option-text">Bottom lighting (dramatic)</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q14" value="Free-form">
+            <input type="checkbox" name="q14" value="Free-form">
             <input class="free-input free-inline" type="text" name="q14_free" placeholder="Describe the lighting direction" />
           </label>
         </div>
       </div>
 
-      <!-- (17) Lighting style -->
+      <!-- (18) Lighting style -->
       <div class="question" data-question="What lighting style should be used?">
-        <div class="question-title">(17) What lighting style should be used?</div>
+        <div class="question-title">(18) What lighting style should be used?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q15" value="Soft natural light">
+            <input type="checkbox" name="q15" value="Soft natural light">
             <span class="option-text">Soft natural light</span>
           </label>
           <label class="option">
-            <input type="radio" name="q15" value="Dramatic side light">
+            <input type="checkbox" name="q15" value="Dramatic side light">
             <span class="option-text">Dramatic side light</span>
           </label>
           <label class="option">
-            <input type="radio" name="q15" value="Bright studio lighting">
+            <input type="checkbox" name="q15" value="Bright studio lighting">
             <span class="option-text">Bright studio lighting</span>
           </label>
           <label class="option">
-            <input type="radio" name="q15" value="Golden hour warm light">
+            <input type="checkbox" name="q15" value="Golden hour warm light">
             <span class="option-text">Golden hour warm light</span>
           </label>
           <label class="option">
-            <input type="radio" name="q15" value="Moody low-key shadowing">
+            <input type="checkbox" name="q15" value="Moody low-key shadowing">
             <span class="option-text">Moody low-key shadowing</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q15" value="Free-form">
+            <input type="checkbox" name="q15" value="Free-form">
             <input class="free-input free-inline" type="text" name="q15_free" placeholder="Describe the lighting style" />
           </label>
         </div>
@@ -851,101 +956,101 @@
       <!-- Section: Style & technical -->
       <h2 class="section-heading">Style &amp; technical:</h2>
 
-      <!-- (18) Art style / realism -->
+      <!-- (19) Art style / realism -->
       <div class="question" data-question="What art style or realism level do you want?">
-        <div class="question-title">(18) What art style or realism level do you want?</div>
+        <div class="question-title">(19) What art style or realism level do you want?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q16" value="Photorealistic">
+            <input type="checkbox" name="q16" value="Photorealistic">
             <span class="option-text">Photorealistic</span>
           </label>
           <label class="option">
-            <input type="radio" name="q16" value="Cinematic">
+            <input type="checkbox" name="q16" value="Cinematic">
             <span class="option-text">Cinematic</span>
           </label>
           <label class="option">
-            <input type="radio" name="q16" value="Soft portrait photography">
+            <input type="checkbox" name="q16" value="Soft portrait photography">
             <span class="option-text">Soft portrait photography</span>
           </label>
           <label class="option">
-            <input type="radio" name="q16" value="Oil painting">
+            <input type="checkbox" name="q16" value="Oil painting">
             <span class="option-text">Oil painting</span>
           </label>
           <label class="option">
-            <input type="radio" name="q16" value="Watercolor">
+            <input type="checkbox" name="q16" value="Watercolor">
             <span class="option-text">Watercolor</span>
           </label>
           <label class="option">
-            <input type="radio" name="q16" value="Pencil sketch">
+            <input type="checkbox" name="q16" value="Pencil sketch">
             <span class="option-text">Pencil sketch</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q16" value="Free-form">
+            <input type="checkbox" name="q16" value="Free-form">
             <input class="free-input free-inline" type="text" name="q16_free" placeholder="Describe the art style or realism level" />
           </label>
         </div>
       </div>
 
-      <!-- (19) Lens style / technical -->
+      <!-- (20) Lens style / technical -->
       <div class="question" data-question="What lens style or technical details should apply?">
-        <div class="question-title">(19) What lens style or technical details should apply?</div>
+        <div class="question-title">(20) What lens style or technical details should apply?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q17" value="Shallow depth of field (blurry background)">
+            <input type="checkbox" name="q17" value="Shallow depth of field (blurry background)">
             <span class="option-text">Shallow depth of field (blurry background)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q17" value="Sharp detail throughout">
+            <input type="checkbox" name="q17" value="Sharp detail throughout">
             <span class="option-text">Sharp detail throughout</span>
           </label>
           <label class="option">
-            <input type="radio" name="q17" value="Macro lens look">
+            <input type="checkbox" name="q17" value="Macro lens look">
             <span class="option-text">Macro lens look</span>
           </label>
           <label class="option">
-            <input type="radio" name="q17" value="Wide-angle environmental portrait">
+            <input type="checkbox" name="q17" value="Wide-angle environmental portrait">
             <span class="option-text">Wide-angle environmental portrait</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q17" value="Free-form">
+            <input type="checkbox" name="q17" value="Free-form">
             <input class="free-input free-inline" type="text" name="q17_free" placeholder="Describe lens style or technical details" />
           </label>
         </div>
       </div>
 
-      <!-- (20) Aspect ratio -->
+      <!-- (21) Aspect ratio -->
       <div class="question" data-question="What aspect ratio should the final image use?">
-        <div class="question-title">(20) What aspect ratio should the final image use?</div>
+        <div class="question-title">(21) What aspect ratio should the final image use?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q18" value="Square (1:1)">
+            <input type="checkbox" name="q18" value="Square (1:1)">
             <span class="option-text">Square (1:1)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q18" value="Portrait (4:5)">
+            <input type="checkbox" name="q18" value="Portrait (4:5)">
             <span class="option-text">Portrait (4:5)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q18" value="Portrait (3:4)">
+            <input type="checkbox" name="q18" value="Portrait (3:4)">
             <span class="option-text">Portrait (3:4)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q18" value="Landscape (16:9)">
+            <input type="checkbox" name="q18" value="Landscape (16:9)">
             <span class="option-text">Landscape (16:9)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q18" value="Landscape (3:2)">
+            <input type="checkbox" name="q18" value="Landscape (3:2)">
             <span class="option-text">Landscape (3:2)</span>
           </label>
           <label class="option">
-            <input type="radio" name="q18" value="Ultra-wide (2:1)">
+            <input type="checkbox" name="q18" value="Ultra-wide (2:1)">
             <span class="option-text">Ultra-wide (2:1)</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q18" value="Free-form">
+            <input type="checkbox" name="q18" value="Free-form">
             <input class="free-input free-inline" type="text" name="q18_free" placeholder="Describe the aspect ratio" />
           </label>
         </div>
@@ -954,104 +1059,104 @@
       <!-- Section: Extras & mood -->
       <h2 class="section-heading">Extras &amp; mood:</h2>
 
-      <!-- (21) Additional elements -->
+      <!-- (22) Additional elements -->
       <div class="question" data-question="Any additional elements to include?">
-        <div class="question-title">(21) Any additional elements to include?</div>
+        <div class="question-title">(22) Any additional elements to include?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q19" value="None">
+            <input type="checkbox" name="q19" value="None">
             <span class="option-text">None</span>
           </label>
           <label class="option">
-            <input type="radio" name="q19" value="Props">
+            <input type="checkbox" name="q19" value="Props">
             <span class="option-text">Props (glasses, hat, backpack, etc.) – describe below</span>
           </label>
           <label class="option">
-            <input type="radio" name="q19" value="Motion effects">
+            <input type="checkbox" name="q19" value="Motion effects">
             <span class="option-text">Motion effects (wind, particles, rain, etc.) – describe below</span>
           </label>
           <label class="option">
-            <input type="radio" name="q19" value="Background storytelling elements">
+            <input type="checkbox" name="q19" value="Background storytelling elements">
             <span class="option-text">Background storytelling elements – describe below</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q19" value="Free-form">
+            <input type="checkbox" name="q19" value="Free-form">
             <input class="free-input free-inline" type="text" name="q19_free" placeholder="Describe extra elements or storytelling details" />
           </label>
         </div>
       </div>
 
-      <!-- (22) Elements to avoid -->
+      <!-- (23) Elements to avoid -->
       <div class="question" data-question="Any elements to avoid?">
-        <div class="question-title">(22) Any elements to avoid?</div>
+        <div class="question-title">(23) Any elements to avoid?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q20" value="Over-saturated colors">
+            <input type="checkbox" name="q20" value="Over-saturated colors">
             <span class="option-text">Over-saturated colors</span>
           </label>
           <label class="option">
-            <input type="radio" name="q20" value="Harsh shadows">
+            <input type="checkbox" name="q20" value="Harsh shadows">
             <span class="option-text">Harsh shadows</span>
           </label>
           <label class="option">
-            <input type="radio" name="q20" value="Busy backgrounds">
+            <input type="checkbox" name="q20" value="Busy backgrounds">
             <span class="option-text">Busy backgrounds</span>
           </label>
           <label class="option">
-            <input type="radio" name="q20" value="Unrealistic skin smoothing">
+            <input type="checkbox" name="q20" value="Unrealistic skin smoothing">
             <span class="option-text">Unrealistic skin smoothing</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q20" value="Free-form">
+            <input type="checkbox" name="q20" value="Free-form">
             <input class="free-input free-inline" type="text" name="q20_free" placeholder="Describe anything you want to avoid" />
           </label>
         </div>
       </div>
 
-      <!-- (23) Tone / mood -->
+      <!-- (24) Tone / mood -->
       <div class="question" data-question="What is the tone or mood of the overall image?">
-        <div class="question-title">(23) What is the tone or mood of the overall image?</div>
+        <div class="question-title">(24) What is the tone or mood of the overall image?</div>
         <div class="options">
           <label class="option">
-            <input type="radio" name="q21" value="Warm and inviting">
+            <input type="checkbox" name="q21" value="Warm and inviting">
             <span class="option-text">Warm and inviting</span>
           </label>
           <label class="option">
-            <input type="radio" name="q21" value="Clean and professional">
+            <input type="checkbox" name="q21" value="Clean and professional">
             <span class="option-text">Clean and professional</span>
           </label>
           <label class="option">
-            <input type="radio" name="q21" value="Dramatic and bold">
+            <input type="checkbox" name="q21" value="Dramatic and bold">
             <span class="option-text">Dramatic and bold</span>
           </label>
           <label class="option">
-            <input type="radio" name="q21" value="Soft and emotional">
+            <input type="checkbox" name="q21" value="Soft and emotional">
             <span class="option-text">Soft and emotional</span>
           </label>
           <!-- Free-form inline -->
           <label class="option">
-            <input type="radio" name="q21" value="Free-form">
+            <input type="checkbox" name="q21" value="Free-form">
             <input class="free-input free-inline" type="text" name="q21_free" placeholder="Describe the tone or mood" />
           </label>
         </div>
       </div>
 
-      <!-- (24) Anything else -->
+      <!-- (25) Anything else -->
       <div class="question" data-question="Is there anything else you wish to describe?">
-        <div class="question-title">(24) Is there anything else you wish to describe?</div>
+        <div class="question-title">(25) Is there anything else you wish to describe?</div>
         <div class="options">
           <!-- Free-form inline with textarea -->
           <label class="option">
-            <input type="radio" name="q22" value="Free-form">
+            <input type="checkbox" name="q22" value="Free-form">
             <textarea class="free-input free-inline" id="extraDescription" name="q22_free" placeholder="Add any extra notes or details here"></textarea>
           </label>
         </div>
       </div>
 
       <p class="summary-instruction">
-        <strong>Click on the Generate Summary which will produce the Summary Content you need for the next step.</strong>
+        <strong>Now that you've answered all of the questions, click on the Generate Summary for AI Prompt below. That will produce the Summary Content you need for the next step.</strong>
       </p>
 
       <div class="actions">
@@ -1079,51 +1184,61 @@
   </div>
 
   <script>
-    // Auto-check the "free-form" radio when user focuses or types in a free-form box
+    // Auto-check the "free-form" checkbox when user focuses or types in a free-form box
     document.querySelectorAll('.free-input').forEach(function (inputEl) {
       ['focus', 'input'].forEach(function (evt) {
         inputEl.addEventListener(evt, function () {
           const label = inputEl.closest('label.option');
           if (!label) return;
-          const radio = label.querySelector('input[type="radio"]');
-          if (radio && !radio.checked) {
-            radio.checked = true;
+          const box = label.querySelector('input[type="checkbox"]');
+          if (box && !box.checked) {
+            box.checked = true;
           }
         });
       });
     });
 
-    // Generate summary
+    // Generate summary (supports multiple selections per question)
     document.getElementById("generateSummary").addEventListener("click", function () {
       const questions = document.querySelectorAll(".question[data-question]");
       const lines = [];
 
       questions.forEach((q, index) => {
         const label = q.getAttribute("data-question");
-        const radios = q.querySelectorAll('input[type="radio"][name^="q"]');
-        if (!radios.length) return;
+        const inputs = q.querySelectorAll('input[type="checkbox"][name^="q"]');
+        if (!inputs.length) return;
 
-        const name = radios[0].name;
-        const checked = q.querySelector('input[type="radio"][name="' + name + '"]:checked');
+        const groupName = inputs[0].name;
+        const checkedInputs = Array.from(inputs).filter(i => i.checked);
 
         let answerText = "";
-        if (checked) {
-          if (checked.value === "Free-form") {
-            const free = q.querySelector('input[name="' + name + '_free"]') ||
-                         q.querySelector('textarea[name="' + name + '_free"]');
-            answerText = free && free.value.trim()
-              ? free.value.trim()
-              : "Free-form (no additional description provided)";
-          } else {
-            answerText = checked.value;
-            const free = q.querySelector('input[name="' + name + '_free"]') ||
-                         q.querySelector('textarea[name="' + name + '_free"]');
-            if (free && free.value.trim()) {
-              answerText += " — " + free.value.trim();
+
+        if (checkedInputs.length) {
+          const parts = [];
+          checkedInputs.forEach(chk => {
+            if (chk.value === "Free-form") {
+              const free = q.querySelector('input[name="' + groupName + '_free"]') ||
+                           q.querySelector('textarea[name="' + groupName + '_free"]');
+              if (free && free.value.trim()) {
+                parts.push(free.value.trim());
+              } else {
+                parts.push("Free-form (no additional description provided)");
+              }
+            } else {
+              let part = chk.value;
+              const free = q.querySelector('input[name="' + groupName + '_free"]') ||
+                           q.querySelector('textarea[name="' + groupName + '_free"]');
+              if (free && free.value.trim()) {
+                part += " — " + free.value.trim();
+              }
+              parts.push(part);
             }
-          }
+          });
+          answerText = parts.join("; ");
         } else {
-          const freeOnly = q.querySelector('textarea[name="' + name + '_free"]');
+          // No checkboxes selected; see if there's free text anyway
+          const freeOnly = q.querySelector('input[name="' + groupName + '_free"]') ||
+                           q.querySelector('textarea[name="' + groupName + '_free"]');
           if (freeOnly && freeOnly.value.trim()) {
             answerText = freeOnly.value.trim();
           } else {
