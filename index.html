@@ -261,7 +261,7 @@
       flex-wrap: wrap;
       gap: 10px;
       margin: 22px 0 10px;
-      justify-content: center;
+      justify-content: flex-start; /* left-justify the Generate button */
     }
 
     .btn {
@@ -332,6 +332,12 @@
       box-shadow: 0 0 0 1px var(--accent-soft);
     }
 
+    .summary-copy-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
     .summary-tip {
       margin-top: 6px;
       font-size: 0.86rem;
@@ -385,7 +391,7 @@
       <!-- NEW TOP CARD WITH HERO IMAGE -->
       <section class="hero-card">
         <h1 class="hero-title">
-          Create Stunning Images with Just a Few Clicks?
+          Wouldn’t You Love to Create Images Like This with a Few Clicks?
         </h1>
         <p class="hero-subtitle"><strong>Scroll down to find out how.</strong></p>
 
@@ -416,7 +422,7 @@
           <p class="page-subtitle">Create amazing one person images!</p>
           <p class="page-tagline">(No coding or prompting experience necessary)</p>
           <p class="page-intro">
-            Make one or more choices and/or type your own wording into the box.
+            <strong>Make one or more choices and/or type your own wording into the box.</strong>
           </p>
         </header>
 
@@ -798,21 +804,25 @@
         </div>
 
         <p class="hint">
-          Now that you've answered all of the questions, click on the button below to generate a summary you can use as an AI image prompt.
+          Click on Generate Summary for AI Prompt to go to the next step.
         </p>
 
         <div class="actions-row">
           <button type="button" class="btn btn-primary" onclick="generateSummary()">
             Generate Summary for AI Prompt
           </button>
-          <button type="button" class="btn btn-secondary" onclick="copySummary()">
-            Copy Summary Contents
-          </button>
         </div>
 
         <div class="summary-block">
           <h2 class="section-title">Summary of Your Responses (for AI prompt)</h2>
           <textarea id="summary-output" placeholder="Your combined summary will appear here after you click “Generate Summary for AI Prompt.”"></textarea>
+
+          <div class="summary-copy-row">
+            <button type="button" class="btn btn-primary" onclick="copySummary()">
+              Copy Summary Contents
+            </button>
+          </div>
+
           <p class="summary-tip">
             Tip: Click “Copy Summary Contents” and paste it into your favorite AI bot
             (ChatGPT, Gemini, etc.) and then ask it to generate an image.
