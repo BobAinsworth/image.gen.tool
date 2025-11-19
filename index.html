@@ -2,1300 +2,893 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>People Image Generation Prompt Tool</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>People Image Generation Prompt Tool</title>
+  <meta name="description" content="Answer a few questions and generate a detailed AI prompt for creating high-quality images of people." />
 
   <style>
     :root {
       --bg: #f7fafc;
+      --surface: #eef4ff;
       --card: #ffffff;
-      --border: #d0d7e2;
-      --text: #111827;
-      --muted: #4b5563;
-      --accent: #2563eb;
-      --radius: 12px;
+      --text: #0b1220;
+      --muted: #445066;
+      --accent: #165dff;
+      --accent-soft: rgba(22, 93, 255, 0.08);
+      --border: #d0d7f2;
+      --shadow: 0 16px 35px rgba(15, 23, 42, 0.14);
+      --radius: 18px;
+      --radius-lg: 22px;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #eef2ff 0, #f7fafc 40%, #edf2ff 100%);
       color: var(--text);
-      padding: 1.5rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      line-height: 1.6;
     }
 
-    .container {
-      max-width: 900px;
+    .page-shell {
+      max-width: 980px;
       margin: 0 auto;
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1.5rem 1.75rem 2.5rem;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-      border: 1px solid #e5e7eb;
+      padding: 32px 16px 48px;
     }
 
-    .container-header {
+    @media (min-width: 768px) {
+      .page-shell {
+        padding: 40px 24px 64px;
+      }
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ---------- NEW TOP CARD ---------- */
+
+    .hero-card {
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 28px 20px 24px;
       text-align: center;
-      margin-bottom: 1.25rem;
+      border: 1px solid rgba(249, 115, 22, 0.18);
     }
 
-    h1 {
-      margin-top: 0;
-      font-size: 1.9rem;
-      margin-bottom: 0.15rem;
+    @media (min-width: 768px) {
+      .hero-card {
+        padding: 32px 32px 28px;
+      }
     }
 
-    .tagline {
-      font-size: 1.05rem;
+    .hero-title {
+      margin: 0;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+    }
+
+    .hero-subtitle {
+      margin: 10px 0 16px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #7c2d12;
+    }
+
+    .hero-note {
+      margin: 0 0 18px;
+      font-size: 0.98rem;
+      color: #9a3412;
+    }
+
+    .hero-image-wrapper {
+      margin: 0 auto;
+      max-width: 360px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(180, 83, 9, 0.28);
+      background: #fef3c7;
+      /* Ensure the displayed image is always a 1:1 square */
+      aspect-ratio: 1 / 1;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* ---------- MAIN TOOL CARD ---------- */
+
+    .tool-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 24px 18px 28px;
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      .tool-card {
+        padding: 30px 32px 34px;
+      }
+    }
+
+    .page-title {
+      margin: 0 0 4px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: #111827;
-      margin-bottom: 0.3rem;
+      color: var(--accent);
+      text-align: center;
     }
 
-    .subtitle {
+    .page-tagline {
+      margin: 6px 0 16px;
+      font-size: 0.98rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .page-intro {
+      margin: 0 0 20px;
+      font-size: 0.98rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .section-title {
+      margin: 22px 0 4px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .hint {
       font-size: 0.9rem;
-      color: #6b7280;
-      max-width: 580px;
-      margin: 0 auto 1.25rem;
+      color: var(--muted);
+      margin-top: 2px;
+      margin-bottom: 8px;
     }
 
-    .section-heading {
-      margin-top: 1.5rem;
-      margin-bottom: 0.35rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #111827;
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 3px;
-    }
-
-    .question {
-      border-top: 1px solid #e5e7eb;
-      padding-top: 0.75rem;
-      margin-top: 0.75rem;
-    }
-
-    .question:first-of-type {
-      border-top: none;
-      margin-top: 0;
-      padding-top: 0;
+    .question-group {
+      margin: 20px 0 16px;
+      padding: 14px 12px 12px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid rgba(148, 163, 184, 0.55);
     }
 
     .question-title {
+      margin: 0 0 6px;
+      font-size: 0.98rem;
       font-weight: 600;
-      margin-bottom: 0.2rem;
     }
 
     .options {
       display: flex;
-      flex-direction: column;
-      gap: 0.1rem; /* closer spacing between answers */
-    }
-
-    label.option {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.1rem 0.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-
-    label.option:hover {
-      background: #f3f4ff;
-    }
-
-    .option input[type="checkbox"] {
-      accent-color: var(--accent);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .option-text {
-      font-size: 0.95rem;
-      line-height: 1.3;
-    }
-
-    .free-input {
-      padding: 0.25rem 0.4rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      margin-bottom: 8px;
       font-size: 0.9rem;
     }
 
-    .free-inline {
-      flex: 1;
-      max-width: 420px;
+    .option-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 5px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.03);
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease,
+        box-shadow 0.12s ease, transform 0.06s ease;
     }
 
-    textarea.free-inline {
-      min-height: 80px;
-      resize: vertical;
+    .option-pill:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(22, 93, 255, 0.18);
+      transform: translateY(-0.5px);
+    }
+
+    .option-pill input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      accent-color: var(--accent);
+    }
+
+    .freeform-input {
       width: 100%;
+      min-height: 40px;
+      resize: vertical;
+      padding: 6px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      background: #ffffff;
     }
 
-    .actions {
-      margin-top: 1.5rem;
-      border-top: 1px solid #e5e7eb;
-      padding-top: 1.1rem;
+    .freeform-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+
+    .question-note {
+      margin-top: 4px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .actions-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-      justify-content: space-between;
+      gap: 10px;
+      margin: 22px 0 10px;
+      justify-content: center;
     }
 
-    .btn-primary,
-    .btn-secondary {
-      appearance: none;
-      border: none;
+    .btn {
       border-radius: 999px;
-      padding: 0.45rem 1.2rem;
-      font-size: 0.9rem;
+      padding: 9px 18px;
+      border: none;
+      font-size: 0.96rem;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
-      background: var(--accent);
-      color: white;
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
-    }
-
-    .btn-primary:hover,
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
-      background: #1d4ed8;
-    }
-
-    .btn-primary:active,
-    .btn-secondary:active {
-      transform: translateY(0);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-
-    .summary-section {
-      margin-top: 1.5rem;
-    }
-
-    .summary-section h2 {
-      font-size: 1.1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    #summaryText {
-      width: 100%;
-      min-height: 200px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      padding: 0.6rem 0.7rem;
-      font-size: 0.9rem;
-      resize: vertical;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-
-    .hint {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 0.25rem;
-    }
-
-    .summary-actions {
-      margin-top: 0.6rem;
-      display: flex;
-      flex-wrap: wrap;
+      display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background 0.12s ease, opacity 0.1s ease;
+      white-space: nowrap;
     }
 
-    .summary-instruction {
-      margin-top: 1rem;
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.18);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 12px rgba(15, 23, 42, 0.14);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .summary-block {
+      margin-top: 12px;
+    }
+
+    #summary-output {
+      width: 100%;
+      min-height: 160px;
+      resize: vertical;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.95);
       font-size: 0.9rem;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: #f9fafb;
+      outline: none;
+      line-height: 1.5;
     }
 
-    @media (max-width: 640px) {
-      body {
-        padding: 0.75rem;
-      }
-      .container {
-        padding: 1.1rem 1.1rem 1.75rem;
-      }
+    #summary-output:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+
+    .summary-tip {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .footer-tip {
+      margin-top: 18px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="container-header">
-      <h1>People Image Generation Prompt Tool</h1>
-      <div class="tagline">Create an amazing one person image.</div>
-      <div class="tagline">(No coding or prompting experience necessary)</div>
-      <div class="subtitle">
-        Click on the circles (OK to choose more than one) and/or type your own wording into the box.
-      </div>
-    </div>
+  <div class="page-shell">
+    <div class="stack">
 
-    <form id="promptForm">
-      <!-- Section: Subject basics -->
-      <h2 class="section-heading">Subject basics:</h2>
+      <!--
+        =============== IMAGE FOLDER & HERO IMAGE NOTES ===============
 
-      <!-- (1) Purpose -->
-      <div class="question" data-question="What is the purpose or point of the image?">
-        <div class="question-title">(1) What is the purpose or point of the image?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q1" value="Portrait for personal use">
-            <span class="option-text">Portrait for personal use</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q1" value="Professional or business profile">
-            <span class="option-text">Professional or business profile</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q1" value="Marketing / promotional image">
-            <span class="option-text">Marketing / promotional image</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q1" value="Artistic or conceptual piece">
-            <span class="option-text">Artistic or conceptual piece</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q1" value="Storytelling or narrative moment">
-            <span class="option-text">Storytelling or narrative moment</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q1" value="Social media content">
-            <span class="option-text">Social media content</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q1" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q1_free" placeholder="Describe the purpose in your own words" />
-          </label>
+        1) In your GitHub repository for this site, create an "images" folder
+           at the same level as this HTML file (for example, next to index.html).
+        2) Inside the images folder, add a README.md file. It can contain any
+           text you like (for example "Placeholder file so this folder stays
+           in the repo"). This just keeps GitHub from dropping an empty folder.
+        3) Upload one or more .png images into the images folder.
+           Example file names:
+           - top-image.png
+           - top-image-portrait-1.png
+           - top-image-2025-11-hero.png
+
+        HOW TO CHANGE WHICH IMAGE SHOWS ON THE PAGE:
+
+        A) Make sure your desired image (for example "my-new-top-image.png")
+           is uploaded into the images folder.
+        B) Change the src= value in the <img> tag below to match that file:
+
+             <img
+               src="images/my-new-top-image.png"
+               ...
+
+        C) Commit and publish your changes. You can leave as many .png files
+           as you like in the images folder and simply update this one src=
+           line any time you want to switch the hero image.
+
+        The CSS uses aspect-ratio: 1 / 1 to display this image in a square 1:1
+        format regardless of the original proportions.
+      -->
+
+      <!-- NEW TOP CARD WITH HERO IMAGE -->
+      <section class="hero-card">
+        <h1 class="hero-title">
+          Wouldn’t You Love to Create Images Like This with a Few Clicks?
+        </h1>
+        <p class="hero-subtitle">Scroll down to find out how.</p>
+        <p class="hero-note">
+          The image below is just an example. You can easily swap it for any other
+          square-style preview from your <code>images</code> folder.
+        </p>
+
+        <div class="hero-image-wrapper">
+          <!--
+            To change this image:
+            1) Upload your new .png file into the images folder.
+            2) Update the src= value below to match the file name.
+               Example:
+                 src="images/top-image-portrait-1.png"
+            3) Commit and publish.
+
+            Tip: Use images that look good in a square crop (1:1). The CSS
+            will keep the container square and crop the edges if needed.
+          -->
+          <img
+            class="hero-image"
+            src="images/top-image.png"
+            alt="Sample AI-generated portrait created from a detailed prompt"
+          />
         </div>
-      </div>
+      </section>
 
-      <!-- (2) Audience -->
-      <div class="question" data-question="Who is the intended audience for the image?">
-        <div class="question-title">(2) Who is the intended audience for the image?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q2" value="General public">
-            <span class="option-text">General public</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q2" value="Professional audience (industry, business, LinkedIn, etc.)">
-            <span class="option-text">Professional audience (industry, business, LinkedIn, etc.)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q2" value="Creative community (artists, photographers, designers)">
-            <span class="option-text">Creative community (artists, photographers, designers)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q2" value="Friends and family">
-            <span class="option-text">Friends and family</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q2" value="Academic or educational audience">
-            <span class="option-text">Academic or educational audience</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q2" value="Social media followers">
-            <span class="option-text">Social media followers</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q2" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q2_free" placeholder="Describe the audience in your own words" />
-          </label>
+      <!-- MAIN TOOL CARD -->
+      <section class="tool-card">
+        <header>
+          <h1 class="page-title">People Image Generation Prompt Tool</h1>
+          <p class="page-subtitle">Create amazing one person images!</p>
+          <p class="page-tagline">(No coding or prompting experience necessary)</p>
+          <p class="page-intro">
+            Make one or more choices and/or type your own wording into the box.
+          </p>
+        </header>
+
+        <!-- SUBJECT BASICS -->
+        <h2 class="section-title">Subject basics:</h2>
+        <p class="hint">Choose everything that applies and/or type your own details.</p>
+
+        <div class="question-group" data-question="1">
+          <p class="question-title">(1) What is the purpose or point of the image?</p>
+          <div class="options">
+            <label class="option-pill">
+              <input type="checkbox" value="Portrait for personal use">
+              <span>Portrait for personal use</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Professional or business profile">
+              <span>Professional or business profile</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Marketing / promotional image">
+              <span>Marketing / promotional image</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Artistic or conceptual piece">
+              <span>Artistic or conceptual piece</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Storytelling or narrative moment">
+              <span>Storytelling or narrative moment</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Social media content">
+              <span>Social media content</span>
+            </label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe any other purpose or nuance here."></textarea>
+          <p class="question-note">Example: “Professional LinkedIn headshot with a friendly, trustworthy feel.”</p>
         </div>
-      </div>
 
-      <!-- (3) Age category -->
-      <div class="question" data-question="What is the age category of the person?">
-        <div class="question-title">(3) What is the age category of the person?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q3" value="Child">
-            <span class="option-text">Child</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q3" value="Teen">
-            <span class="option-text">Teen</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q3" value="Young adult">
-            <span class="option-text">Young adult</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q3" value="Adult">
-            <span class="option-text">Adult</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q3" value="Middle aged">
-            <span class="option-text">Middle aged</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q3" value="Senior">
-            <span class="option-text">Senior</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q3" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q3_free" placeholder="Describe the age in your own words" />
-          </label>
+        <div class="question-group" data-question="2">
+          <p class="question-title">(2) Who is the intended audience for the image?</p>
+          <div class="options">
+            <label class="option-pill">
+              <input type="checkbox" value="General public">
+              <span>General public</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Professional audience (industry, business, LinkedIn, etc.)">
+              <span>Professional audience (industry, business, LinkedIn, etc.)</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Creative community (artists, photographers, designers)">
+              <span>Creative community (artists, photographers, designers)</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Friends and family">
+              <span>Friends and family</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Academic or educational audience">
+              <span>Academic or educational audience</span>
+            </label>
+            <label class="option-pill">
+              <input type="checkbox" value="Social media followers">
+              <span>Social media followers</span>
+            </label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe your audience or platform in your own words."></textarea>
         </div>
-      </div>
 
-      <!-- (4) Gender presentation -->
-      <div class="question" data-question="What is the gender presentation?">
-        <div class="question-title">(4) What is the gender presentation?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q4" value="Female">
-            <span class="option-text">Female</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q4" value="Male">
-            <span class="option-text">Male</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q4" value="Androgynous">
-            <span class="option-text">Androgynous</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q4" value="Nonbinary">
-            <span class="option-text">Nonbinary</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q4" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q4_free" placeholder="Describe the gender presentation" />
-          </label>
+        <div class="question-group" data-question="3">
+          <p class="question-title">(3) What is the age category of the person?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Child"><span>Child</span></label>
+            <label class="option-pill"><input type="checkbox" value="Teen"><span>Teen</span></label>
+            <label class="option-pill"><input type="checkbox" value="Young adult"><span>Young adult</span></label>
+            <label class="option-pill"><input type="checkbox" value="Adult"><span>Adult</span></label>
+            <label class="option-pill"><input type="checkbox" value="Middle aged"><span>Middle aged</span></label>
+            <label class="option-pill"><input type="checkbox" value="Senior"><span>Senior</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: add more detail (for example, 'mid-30s' or 'early 70s')."></textarea>
         </div>
-      </div>
 
-      <!-- Section: Face & body -->
-      <h2 class="section-heading">Face &amp; body:</h2>
-
-      <!-- (5) Ethnicity / facial characteristics -->
-      <div class="question" data-question="What is the ethnicity or facial characteristics?">
-        <div class="question-title">(5) What is the ethnicity or facial characteristics?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q5" value="African / Afro-Caribbean">
-            <span class="option-text">African / Afro-Caribbean</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="East Asian">
-            <span class="option-text">East Asian</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="European">
-            <span class="option-text">European</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="Latino / Hispanic">
-            <span class="option-text">Latino / Hispanic</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="Middle Eastern">
-            <span class="option-text">Middle Eastern</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="South Asian">
-            <span class="option-text">South Asian</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="Mixed ethnicity">
-            <span class="option-text">Mixed ethnicity – describe below</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="White">
-            <span class="option-text">White</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q5" value="African American / Black">
-            <span class="option-text">African American / Black</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q5" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q5_free" placeholder="Describe ethnicity or facial characteristics" />
-          </label>
+        <div class="question-group" data-question="4">
+          <p class="question-title">(4) What is the gender presentation?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Female"><span>Female</span></label>
+            <label class="option-pill"><input type="checkbox" value="Male"><span>Male</span></label>
+            <label class="option-pill"><input type="checkbox" value="Androgynous"><span>Androgynous</span></label>
+            <label class="option-pill"><input type="checkbox" value="Nonbinary"><span>Nonbinary</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe any nuance in presentation or identity."></textarea>
         </div>
-      </div>
 
-      <!-- (6) Emotion / expression -->
-      <div class="question" data-question="What emotion or expression should the person show?">
-        <div class="question-title">(6) What emotion or expression should the person show?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q6" value="Neutral / natural">
-            <span class="option-text">Neutral / natural</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q6" value="Smiling">
-            <span class="option-text">Smiling</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q6" value="Thoughtful / reflective">
-            <span class="option-text">Thoughtful / reflective</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q6" value="Serious / intense">
-            <span class="option-text">Serious / intense</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q6" value="Joyful / laughing">
-            <span class="option-text">Joyful / laughing</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q6" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q6_free" placeholder="Describe the expression" />
-          </label>
+        <!-- FACE & BODY -->
+        <h2 class="section-title">Face &amp; body:</h2>
+
+        <div class="question-group" data-question="5">
+          <p class="question-title">(5) What is the ethnicity or facial characteristics?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="African / Afro-Caribbean"><span>African / Afro-Caribbean</span></label>
+            <label class="option-pill"><input type="checkbox" value="East Asian"><span>East Asian</span></label>
+            <label class="option-pill"><input type="checkbox" value="European"><span>European</span></label>
+            <label class="option-pill"><input type="checkbox" value="Latino / Hispanic"><span>Latino / Hispanic</span></label>
+            <label class="option-pill"><input type="checkbox" value="Middle Eastern"><span>Middle Eastern</span></label>
+            <label class="option-pill"><input type="checkbox" value="South Asian"><span>South Asian</span></label>
+            <label class="option-pill"><input type="checkbox" value="Mixed ethnicity – describe below"><span>Mixed ethnicity – describe below</span></label>
+            <label class="option-pill"><input type="checkbox" value="White"><span>White</span></label>
+            <label class="option-pill"><input type="checkbox" value="African American / Black"><span>African American / Black</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe facial characteristics or mixed background."></textarea>
         </div>
-      </div>
 
-      <!-- (7) Facial features -->
-      <div class="question" data-question="What facial features should the person have?">
-        <div class="question-title">(7) What facial features should the person have?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q7" value="Soft and rounded features">
-            <span class="option-text">Soft and rounded features</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Sharp and angular features">
-            <span class="option-text">Sharp and angular features</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="High cheekbones">
-            <span class="option-text">High cheekbones</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Freckles">
-            <span class="option-text">Freckles</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Complexion">
-            <span class="option-text">Complexion – describe below</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Prominent jawline">
-            <span class="option-text">Prominent jawline</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Distinctive nose shape">
-            <span class="option-text">Distinctive nose shape</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Soft gentle facial features">
-            <span class="option-text">Soft gentle facial features</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q7" value="Refined / elegant facial features">
-            <span class="option-text">Refined / elegant facial features</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q7" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q7_free" placeholder="Describe facial features or complexion" />
-          </label>
+        <div class="question-group" data-question="6">
+          <p class="question-title">(6) What emotion or expression should the person show?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Neutral / natural"><span>Neutral / natural</span></label>
+            <label class="option-pill"><input type="checkbox" value="Smiling"><span>Smiling</span></label>
+            <label class="option-pill"><input type="checkbox" value="Thoughtful / reflective"><span>Thoughtful / reflective</span></label>
+            <label class="option-pill"><input type="checkbox" value="Serious / intense"><span>Serious / intense</span></label>
+            <label class="option-pill"><input type="checkbox" value="Joyful / laughing"><span>Joyful / laughing</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe the exact expression you have in mind."></textarea>
         </div>
-      </div>
 
-      <!-- (8) Physical-appearance choices -->
-      <div class="question" data-question="Physical-appearance choices">
-        <div class="question-title">(8) Physical-appearance choices</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q25" value="Attractive / good-looking">
-            <span class="option-text">Attractive / good-looking</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Handsome">
-            <span class="option-text">Handsome</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Beautiful">
-            <span class="option-text">Beautiful</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Cute / youthful features">
-            <span class="option-text">Cute / youthful features</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Rugged / weathered features">
-            <span class="option-text">Rugged / weathered features</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Refined / elegant stature">
-            <span class="option-text">Refined / elegant stature</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Healthy, vibrant appearance">
-            <span class="option-text">Healthy, vibrant appearance</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q25" value="Distinguished and mature">
-            <span class="option-text">Distinguished and mature</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q25" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q25_free" placeholder="Describe overall physical appearance" />
-          </label>
+        <div class="question-group" data-question="7">
+          <p class="question-title">(7) What facial features should the person have?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Soft and rounded features"><span>Soft and rounded features</span></label>
+            <label class="option-pill"><input type="checkbox" value="Sharp and angular features"><span>Sharp and angular features</span></label>
+            <label class="option-pill"><input type="checkbox" value="High cheekbones"><span>High cheekbones</span></label>
+            <label class="option-pill"><input type="checkbox" value="Freckles"><span>Freckles</span></label>
+            <label class="option-pill"><input type="checkbox" value="Complexion – describe below"><span>Complexion – describe below</span></label>
+            <label class="option-pill"><input type="checkbox" value="Prominent jawline"><span>Prominent jawline</span></label>
+            <label class="option-pill"><input type="checkbox" value="Distinctive nose shape"><span>Distinctive nose shape</span></label>
+            <label class="option-pill"><input type="checkbox" value="Soft gentle facial features"><span>Soft gentle facial features</span></label>
+            <label class="option-pill"><input type="checkbox" value="Refined / elegant facial features"><span>Refined / elegant facial features</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe complexion, skin details, or other facial traits."></textarea>
         </div>
-      </div>
 
-      <!-- (9) Hair color -->
-      <div class="question" data-question="What color hair does the subject have?">
-        <div class="question-title">(9) What color hair does the subject have?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q23" value="Black hair">
-            <span class="option-text">Black</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="Blonde hair">
-            <span class="option-text">Blonde</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="Brown hair">
-            <span class="option-text">Brown</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="Gray / Silver hair">
-            <span class="option-text">Gray / Silver</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="Red / Auburn hair">
-            <span class="option-text">Red / Auburn</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="White hair">
-            <span class="option-text">White</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="Dyed / unconventional color">
-            <span class="option-text">Dyed / unconventional color (blue, pink, purple, etc.)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q23" value="Salt-and-pepper hair">
-            <span class="option-text">Salt-and-pepper</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q23" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q23_free" placeholder="Describe the hair color in your own words" />
-          </label>
+        <div class="question-group" data-question="8">
+          <p class="question-title">(8) Physical-appearance choices</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Attractive / good-looking"><span>Attractive / good-looking</span></label>
+            <label class="option-pill"><input type="checkbox" value="Handsome"><span>Handsome</span></label>
+            <label class="option-pill"><input type="checkbox" value="Beautiful"><span>Beautiful</span></label>
+            <label class="option-pill"><input type="checkbox" value="Cute / youthful features"><span>Cute / youthful features</span></label>
+            <label class="option-pill"><input type="checkbox" value="Rugged / weathered features"><span>Rugged / weathered features</span></label>
+            <label class="option-pill"><input type="checkbox" value="Refined / elegant stature"><span>Refined / elegant stature</span></label>
+            <label class="option-pill"><input type="checkbox" value="Healthy, vibrant appearance"><span>Healthy, vibrant appearance</span></label>
+            <label class="option-pill"><input type="checkbox" value="Distinguished and mature"><span>Distinguished and mature</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe overall look or vibe of the person."></textarea>
         </div>
-      </div>
 
-      <!-- (10) Hairstyle -->
-      <div class="question" data-question="What hairstyle does the subject have?">
-        <div class="question-title">(10) What hairstyle does the subject have?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q24" value="Short and neat hairstyle">
-            <span class="option-text">Short and neat</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Medium length hairstyle">
-            <span class="option-text">Medium length</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Long and straight hair">
-            <span class="option-text">Long and straight</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Long and wavy hair">
-            <span class="option-text">Long and wavy</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Curly or coiled hair">
-            <span class="option-text">Curly or coiled</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Bald or shaved head">
-            <span class="option-text">Bald or shaved</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Ponytail or tied back hair">
-            <span class="option-text">Ponytail or tied back</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q24" value="Messy or windblown hair">
-            <span class="option-text">Messy / windblown</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q24" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q24_free" placeholder="Describe the hairstyle in your own words" />
-          </label>
+        <div class="question-group" data-question="9">
+          <p class="question-title">(9) What color hair does the subject have?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Black"><span>Black</span></label>
+            <label class="option-pill"><input type="checkbox" value="Blonde"><span>Blonde</span></label>
+            <label class="option-pill"><input type="checkbox" value="Brown"><span>Brown</span></label>
+            <label class="option-pill"><input type="checkbox" value="Gray / Silver"><span>Gray / Silver</span></label>
+            <label class="option-pill"><input type="checkbox" value="Red / Auburn"><span>Red / Auburn</span></label>
+            <label class="option-pill"><input type="checkbox" value="White"><span>White</span></label>
+            <label class="option-pill"><input type="checkbox" value="Dyed / unconventional color (blue, pink, purple, etc.)"><span>Dyed / unconventional color (blue, pink, purple, etc.)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Salt-and-pepper"><span>Salt-and-pepper</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe highlights, streaks, or color variations."></textarea>
         </div>
-      </div>
 
-      <!-- (11) Stature -->
-      <div class="question" data-question="What is the person’s overall stature?">
-        <div class="question-title">(11) What is the person’s overall stature?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q8" value="Petite / small frame">
-            <span class="option-text">Petite / small frame</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q8" value="Average build">
-            <span class="option-text">Average build</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q8" value="Tall / elongated frame">
-            <span class="option-text">Tall / elongated frame</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q8" value="Athletic / fit">
-            <span class="option-text">Athletic / fit</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q8" value="Heavyset">
-            <span class="option-text">Heavyset</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q8" value="Muscular">
-            <span class="option-text">Muscular</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q8" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q8_free" placeholder="Describe overall stature" />
-          </label>
+        <div class="question-group" data-question="10">
+          <p class="question-title">(10) What hairstyle does the subject have?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Short and neat"><span>Short and neat</span></label>
+            <label class="option-pill"><input type="checkbox" value="Medium length"><span>Medium length</span></label>
+            <label class="option-pill"><input type="checkbox" value="Long and straight"><span>Long and straight</span></label>
+            <label class="option-pill"><input type="checkbox" value="Long and wavy"><span>Long and wavy</span></label>
+            <label class="option-pill"><input type="checkbox" value="Curly or coiled"><span>Curly or coiled</span></label>
+            <label class="option-pill"><input type="checkbox" value="Bald or shaved"><span>Bald or shaved</span></label>
+            <label class="option-pill"><input type="checkbox" value="Ponytail or tied back"><span>Ponytail or tied back</span></label>
+            <label class="option-pill"><input type="checkbox" value="Messy / windblown"><span>Messy / windblown</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe hair part, bangs, or extra styling."></textarea>
         </div>
-      </div>
 
-      <!-- Section: Framing & pose -->
-      <h2 class="section-heading">Framing &amp; pose:</h2>
-
-      <!-- (12) Camera framing -->
-      <div class="question" data-question="What is the camera framing?">
-        <div class="question-title">(12) What is the camera framing?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q9" value="Extreme close-up (face only)">
-            <span class="option-text">Extreme close-up (face only)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q9" value="Close-up (head and shoulders)">
-            <span class="option-text">Close-up (head and shoulders)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q9" value="Medium shot (waist up)">
-            <span class="option-text">Medium shot (waist up)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q9" value="Full-body shot">
-            <span class="option-text">Full-body shot</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q9" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q9_free" placeholder="Describe the framing" />
-          </label>
+        <div class="question-group" data-question="11">
+          <p class="question-title">(11) What is the person’s overall stature?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Petite / small frame"><span>Petite / small frame</span></label>
+            <label class="option-pill"><input type="checkbox" value="Average build"><span>Average build</span></label>
+            <label class="option-pill"><input type="checkbox" value="Tall / elongated frame"><span>Tall / elongated frame</span></label>
+            <label class="option-pill"><input type="checkbox" value="Athletic / fit"><span>Athletic / fit</span></label>
+            <label class="option-pill"><input type="checkbox" value="Heavyset"><span>Heavyset</span></label>
+            <label class="option-pill"><input type="checkbox" value="Muscular"><span>Muscular</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe posture or body language."></textarea>
         </div>
-      </div>
 
-      <!-- (13) Pose -->
-      <div class="question" data-question="What pose or body position should they have?">
-        <div class="question-title">(13) What pose or body position should they have?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q10" value="Standing">
-            <span class="option-text">Standing</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q10" value="Sitting">
-            <span class="option-text">Sitting</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q10" value="Walking">
-            <span class="option-text">Walking</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q10" value="Dynamic/action pose">
-            <span class="option-text">Dynamic/action pose</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q10" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q10_free" placeholder="Describe the pose" />
-          </label>
+        <!-- FRAMING & POSE -->
+        <h2 class="section-title">Framing &amp; pose:</h2>
+
+        <div class="question-group" data-question="12">
+          <p class="question-title">(12) What is the camera framing?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Extreme close-up (face only)"><span>Extreme close-up (face only)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Close-up (head and shoulders)"><span>Close-up (head and shoulders)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Medium shot (waist up)"><span>Medium shot (waist up)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Full-body shot"><span>Full-body shot</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: add details like camera angle or perspective."></textarea>
         </div>
-      </div>
 
-      <!-- (14) Clothing style -->
-      <div class="question" data-question="What clothing style should they wear?">
-        <div class="question-title">(14) What clothing style should they wear?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q11" value="Casual">
-            <span class="option-text">Casual</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Business / professional">
-            <span class="option-text">Business / professional</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Elegant / formal">
-            <span class="option-text">Elegant / formal</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Outdoors / adventure">
-            <span class="option-text">Outdoors / adventure</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Sporty / athletic wear">
-            <span class="option-text">Sporty / athletic wear</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Streetwear">
-            <span class="option-text">Streetwear</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Vintage / retro">
-            <span class="option-text">Vintage / retro</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Summer / beachwear">
-            <span class="option-text">Summer / beachwear</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Winter / cold-weather clothing">
-            <span class="option-text">Winter / cold-weather clothing</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Smart casual">
-            <span class="option-text">Smart casual</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Bohemian / artistic">
-            <span class="option-text">Bohemian / artistic</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Traditional / cultural attire">
-            <span class="option-text">Traditional / cultural attire</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Formal uniform">
-            <span class="option-text">Formal uniform</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="School / youth style">
-            <span class="option-text">School / youth style</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Minimalist / modern">
-            <span class="option-text">Minimalist / modern</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q11" value="Luxurious / high fashion">
-            <span class="option-text">Luxurious / high fashion</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q11" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q11_free" placeholder="Describe clothing style" />
-          </label>
+        <div class="question-group" data-question="13">
+          <p class="question-title">(13) What pose or body position should they have?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Standing"><span>Standing</span></label>
+            <label class="option-pill"><input type="checkbox" value="Sitting"><span>Sitting</span></label>
+            <label class="option-pill"><input type="checkbox" value="Walking"><span>Walking</span></label>
+            <label class="option-pill"><input type="checkbox" value="Dynamic/action pose"><span>Dynamic/action pose</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe pose details (crossed arms, hands in pockets, etc.)."></textarea>
         </div>
-      </div>
 
-      <!-- Section: Environment & lighting -->
-      <h2 class="section-heading">Environment &amp; lighting:</h2>
-
-      <!-- (15) Environment / background -->
-      <div class="question" data-question="What is the environment or background?">
-        <div class="question-title">(15) What is the environment or background?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q12" value="Indoor studio">
-            <span class="option-text">Indoor studio</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q12" value="Outdoor nature">
-            <span class="option-text">Outdoor nature</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q12" value="Urban city">
-            <span class="option-text">Urban city</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q12" value="Home or lifestyle interior">
-            <span class="option-text">Home or lifestyle interior</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q12" value="Futuristic or abstract">
-            <span class="option-text">Futuristic or abstract</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q12" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q12_free" placeholder="Describe the environment or background" />
-          </label>
+        <div class="question-group" data-question="14">
+          <p class="question-title">(14) What clothing style should they wear?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Casual"><span>Casual</span></label>
+            <label class="option-pill"><input type="checkbox" value="Business / professional"><span>Business / professional</span></label>
+            <label class="option-pill"><input type="checkbox" value="Elegant / formal"><span>Elegant / formal</span></label>
+            <label class="option-pill"><input type="checkbox" value="Outdoors / adventure"><span>Outdoors / adventure</span></label>
+            <label class="option-pill"><input type="checkbox" value="Sporty / athletic wear"><span>Sporty / athletic wear</span></label>
+            <label class="option-pill"><input type="checkbox" value="Streetwear"><span>Streetwear</span></label>
+            <label class="option-pill"><input type="checkbox" value="Vintage / retro"><span>Vintage / retro</span></label>
+            <label class="option-pill"><input type="checkbox" value="Summer / beachwear"><span>Summer / beachwear</span></label>
+            <label class="option-pill"><input type="checkbox" value="Winter / cold-weather clothing"><span>Winter / cold-weather clothing</span></label>
+            <label class="option-pill"><input type="checkbox" value="Smart casual"><span>Smart casual</span></label>
+            <label class="option-pill"><input type="checkbox" value="Bohemian / artistic"><span>Bohemian / artistic</span></label>
+            <label class="option-pill"><input type="checkbox" value="Traditional / cultural attire"><span>Traditional / cultural attire</span></label>
+            <label class="option-pill"><input type="checkbox" value="Formal uniform"><span>Formal uniform</span></label>
+            <label class="option-pill"><input type="checkbox" value="School / youth style"><span>School / youth style</span></label>
+            <label class="option-pill"><input type="checkbox" value="Minimalist / modern"><span>Minimalist / modern</span></label>
+            <label class="option-pill"><input type="checkbox" value="Luxurious / high fashion"><span>Luxurious / high fashion</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe colors, patterns, or specific clothing items."></textarea>
         </div>
-      </div>
 
-      <!-- (16) Direction of subject's gaze -->
-      <div class="question" data-question="In what direction is the subject looking?">
-        <div class="question-title">(16) In what direction is the subject looking?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q13" value="Directly at the camera">
-            <span class="option-text">Directly at the camera</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q13" value="Slightly to the left">
-            <span class="option-text">Slightly to the left</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q13" value="Slightly to the right">
-            <span class="option-text">Slightly to the right</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q13" value="Upward">
-            <span class="option-text">Upward</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q13" value="Downward">
-            <span class="option-text">Downward</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q13" value="Off into the distance (not facing camera)">
-            <span class="option-text">Off into the distance (not facing camera)</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q13" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q13_free" placeholder="Describe the direction of the subject's gaze" />
-          </label>
+        <!-- ENVIRONMENT & LIGHTING -->
+        <h2 class="section-title">Environment &amp; lighting:</h2>
+
+        <div class="question-group" data-question="15">
+          <p class="question-title">(15) What is the environment or background?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Indoor studio"><span>Indoor studio</span></label>
+            <label class="option-pill"><input type="checkbox" value="Outdoor nature"><span>Outdoor nature</span></label>
+            <label class="option-pill"><input type="checkbox" value="Urban city"><span>Urban city</span></label>
+            <label class="option-pill"><input type="checkbox" value="Home or lifestyle interior"><span>Home or lifestyle interior</span></label>
+            <label class="option-pill"><input type="checkbox" value="Futuristic or abstract"><span>Futuristic or abstract</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe specific location details or mood of the setting."></textarea>
         </div>
-      </div>
 
-      <!-- (17) Lighting direction -->
-      <div class="question" data-question="What direction should the lighting come from?">
-        <div class="question-title">(17) What direction should the lighting come from?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q14" value="Front lighting (even illumination)">
-            <span class="option-text">Front lighting (even illumination)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q14" value="Side lighting from the left">
-            <span class="option-text">Side lighting from the left</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q14" value="Side lighting from the right">
-            <span class="option-text">Side lighting from the right</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q14" value="Backlighting / silhouette">
-            <span class="option-text">Backlighting / silhouette</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q14" value="Top lighting (overhead)">
-            <span class="option-text">Top lighting (overhead)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q14" value="Bottom lighting (dramatic)">
-            <span class="option-text">Bottom lighting (dramatic)</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q14" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q14_free" placeholder="Describe the lighting direction" />
-          </label>
+        <div class="question-group" data-question="16">
+          <p class="question-title">(16) In what direction is the subject looking?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Directly at the camera"><span>Directly at the camera</span></label>
+            <label class="option-pill"><input type="checkbox" value="Slightly to the left"><span>Slightly to the left</span></label>
+            <label class="option-pill"><input type="checkbox" value="Slightly to the right"><span>Slightly to the right</span></label>
+            <label class="option-pill"><input type="checkbox" value="Upward"><span>Upward</span></label>
+            <label class="option-pill"><input type="checkbox" value="Downward"><span>Downward</span></label>
+            <label class="option-pill"><input type="checkbox" value="Off into the distance (not facing camera)"><span>Off into the distance (not facing camera)</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe how engaged with the viewer they should feel."></textarea>
         </div>
-      </div>
 
-      <!-- (18) Lighting style -->
-      <div class="question" data-question="What lighting style should be used?">
-        <div class="question-title">(18) What lighting style should be used?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q15" value="Soft natural light">
-            <span class="option-text">Soft natural light</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q15" value="Dramatic side light">
-            <span class="option-text">Dramatic side light</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q15" value="Bright studio lighting">
-            <span class="option-text">Bright studio lighting</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q15" value="Golden hour warm light">
-            <span class="option-text">Golden hour warm light</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q15" value="Moody low-key shadowing">
-            <span class="option-text">Moody low-key shadowing</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q15" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q15_free" placeholder="Describe the lighting style" />
-          </label>
+        <div class="question-group" data-question="17">
+          <p class="question-title">(17) What direction should the lighting come from?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Front lighting (even illumination)"><span>Front lighting (even illumination)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Side lighting from the left"><span>Side lighting from the left</span></label>
+            <label class="option-pill"><input type="checkbox" value="Side lighting from the right"><span>Side lighting from the right</span></label>
+            <label class="option-pill"><input type="checkbox" value="Backlighting / silhouette"><span>Backlighting / silhouette</span></label>
+            <label class="option-pill"><input type="checkbox" value="Top lighting (overhead)"><span>Top lighting (overhead)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Bottom lighting (dramatic)"><span>Bottom lighting (dramatic)</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe how strong or subtle the light should be."></textarea>
         </div>
-      </div>
 
-      <!-- Section: Style & technical -->
-      <h2 class="section-heading">Style &amp; technical:</h2>
-
-      <!-- (19) Art style / realism -->
-      <div class="question" data-question="What art style or realism level do you want?">
-        <div class="question-title">(19) What art style or realism level do you want?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q16" value="Photorealistic">
-            <span class="option-text">Photorealistic</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q16" value="Cinematic">
-            <span class="option-text">Cinematic</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q16" value="Soft portrait photography">
-            <span class="option-text">Soft portrait photography</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q16" value="Oil painting">
-            <span class="option-text">Oil painting</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q16" value="Watercolor">
-            <span class="option-text">Watercolor</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q16" value="Pencil sketch">
-            <span class="option-text">Pencil sketch</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q16" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q16_free" placeholder="Describe the art style or realism level" />
-          </label>
+        <div class="question-group" data-question="18">
+          <p class="question-title">(18) What lighting style should be used?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Soft natural light"><span>Soft natural light</span></label>
+            <label class="option-pill"><input type="checkbox" value="Dramatic side light"><span>Dramatic side light</span></label>
+            <label class="option-pill"><input type="checkbox" value="Bright studio lighting"><span>Bright studio lighting</span></label>
+            <label class="option-pill"><input type="checkbox" value="Golden hour warm light"><span>Golden hour warm light</span></label>
+            <label class="option-pill"><input type="checkbox" value="Moody low-key shadowing"><span>Moody low-key shadowing</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe shadows, highlights, or atmosphere."></textarea>
         </div>
-      </div>
 
-      <!-- (20) Lens style / technical -->
-      <div class="question" data-question="What lens style or technical details should apply?">
-        <div class="question-title">(20) What lens style or technical details should apply?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q17" value="Shallow depth of field (blurry background)">
-            <span class="option-text">Shallow depth of field (blurry background)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q17" value="Sharp detail throughout">
-            <span class="option-text">Sharp detail throughout</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q17" value="Macro lens look">
-            <span class="option-text">Macro lens look</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q17" value="Wide-angle environmental portrait">
-            <span class="option-text">Wide-angle environmental portrait</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q17" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q17_free" placeholder="Describe lens style or technical details" />
-          </label>
+        <!-- STYLE & TECHNICAL -->
+        <h2 class="section-title">Style &amp; technical:</h2>
+
+        <div class="question-group" data-question="19">
+          <p class="question-title">(19) What art style or realism level do you want?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Photorealistic"><span>Photorealistic</span></label>
+            <label class="option-pill"><input type="checkbox" value="Cinematic"><span>Cinematic</span></label>
+            <label class="option-pill"><input type="checkbox" value="Soft portrait photography"><span>Soft portrait photography</span></label>
+            <label class="option-pill"><input type="checkbox" value="Oil painting"><span>Oil painting</span></label>
+            <label class="option-pill"><input type="checkbox" value="Watercolor"><span>Watercolor</span></label>
+            <label class="option-pill"><input type="checkbox" value="Pencil sketch"><span>Pencil sketch</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: mention artists, movements, or any other style references."></textarea>
         </div>
-      </div>
 
-      <!-- (21) Aspect ratio -->
-      <div class="question" data-question="What aspect ratio should the final image use?">
-        <div class="question-title">(21) What aspect ratio should the final image use?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q18" value="Square (1:1)">
-            <span class="option-text">Square (1:1)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q18" value="Portrait (4:5)">
-            <span class="option-text">Portrait (4:5)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q18" value="Portrait (3:4)">
-            <span class="option-text">Portrait (3:4)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q18" value="Landscape (16:9)">
-            <span class="option-text">Landscape (16:9)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q18" value="Landscape (3:2)">
-            <span class="option-text">Landscape (3:2)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q18" value="Ultra-wide (2:1)">
-            <span class="option-text">Ultra-wide (2:1)</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q18" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q18_free" placeholder="Describe the aspect ratio" />
-          </label>
+        <div class="question-group" data-question="20">
+          <p class="question-title">(20) What lens style or technical details should apply?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Shallow depth of field (blurry background)"><span>Shallow depth of field (blurry background)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Sharp detail throughout"><span>Sharp detail throughout</span></label>
+            <label class="option-pill"><input type="checkbox" value="Macro lens look"><span>Macro lens look</span></label>
+            <label class="option-pill"><input type="checkbox" value="Wide-angle environmental portrait"><span>Wide-angle environmental portrait</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: add any other camera or technical details."></textarea>
         </div>
-      </div>
 
-      <!-- Section: Extras & mood -->
-      <h2 class="section-heading">Extras &amp; mood:</h2>
-
-      <!-- (22) Additional elements -->
-      <div class="question" data-question="Any additional elements to include?">
-        <div class="question-title">(22) Any additional elements to include?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q19" value="None">
-            <span class="option-text">None</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q19" value="Props">
-            <span class="option-text">Props (glasses, hat, backpack, etc.) – describe below</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q19" value="Motion effects">
-            <span class="option-text">Motion effects (wind, particles, rain, etc.) – describe below</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q19" value="Background storytelling elements">
-            <span class="option-text">Background storytelling elements – describe below</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q19" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q19_free" placeholder="Describe extra elements or storytelling details" />
-          </label>
+        <div class="question-group" data-question="21">
+          <p class="question-title">(21) What aspect ratio should the final image use?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Square (1:1)"><span>Square (1:1)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Portrait (4:5)"><span>Portrait (4:5)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Portrait (3:4)"><span>Portrait (3:4)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Landscape (16:9)"><span>Landscape (16:9)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Landscape (3:2)"><span>Landscape (3:2)</span></label>
+            <label class="option-pill"><input type="checkbox" value="Ultra-wide (2:1)"><span>Ultra-wide (2:1)</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe where the image will be used (YouTube, Instagram, print, etc.)."></textarea>
         </div>
-      </div>
 
-      <!-- (23) Elements to avoid -->
-      <div class="question" data-question="Any elements to avoid?">
-        <div class="question-title">(23) Any elements to avoid?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q20" value="Over-saturated colors">
-            <span class="option-text">Over-saturated colors</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q20" value="Harsh shadows">
-            <span class="option-text">Harsh shadows</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q20" value="Busy backgrounds">
-            <span class="option-text">Busy backgrounds</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q20" value="Unrealistic skin smoothing">
-            <span class="option-text">Unrealistic skin smoothing</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q20" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q20_free" placeholder="Describe anything you want to avoid" />
-          </label>
+        <!-- EXTRAS & MOOD -->
+        <h2 class="section-title">Extras &amp; mood:</h2>
+
+        <div class="question-group" data-question="22">
+          <p class="question-title">(22) Any additional elements to include?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="None"><span>None</span></label>
+            <label class="option-pill"><input type="checkbox" value="Props (glasses, hat, backpack, etc.) – describe below"><span>Props (glasses, hat, backpack, etc.) – describe below</span></label>
+            <label class="option-pill"><input type="checkbox" value="Motion effects (wind, particles, rain, etc.) – describe below"><span>Motion effects (wind, particles, rain, etc.) – describe below</span></label>
+            <label class="option-pill"><input type="checkbox" value="Background storytelling elements – describe below"><span>Background storytelling elements – describe below</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Describe props, motion effects, or background storytelling elements."></textarea>
         </div>
-      </div>
 
-      <!-- (24) Tone / mood -->
-      <div class="question" data-question="What is the tone or mood of the overall image?">
-        <div class="question-title">(24) What is the tone or mood of the overall image?</div>
-        <div class="options">
-          <label class="option">
-            <input type="checkbox" name="q21" value="Warm and inviting">
-            <span class="option-text">Warm and inviting</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q21" value="Clean and professional">
-            <span class="option-text">Clean and professional</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q21" value="Dramatic and bold">
-            <span class="option-text">Dramatic and bold</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="q21" value="Soft and emotional">
-            <span class="option-text">Soft and emotional</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="checkbox" name="q21" value="Free-form">
-            <input class="free-input free-inline" type="text" name="q21_free" placeholder="Describe the tone or mood" />
-          </label>
+        <div class="question-group" data-question="23">
+          <p class="question-title">(23) Any elements to avoid?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Over-saturated colors"><span>Over-saturated colors</span></label>
+            <label class="option-pill"><input type="checkbox" value="Harsh shadows"><span>Harsh shadows</span></label>
+            <label class="option-pill"><input type="checkbox" value="Busy backgrounds"><span>Busy backgrounds</span></label>
+            <label class="option-pill"><input type="checkbox" value="Unrealistic skin smoothing"><span>Unrealistic skin smoothing</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Mention anything else you do NOT want to see in the image."></textarea>
         </div>
-      </div>
 
-      <!-- (25) Anything else -->
-      <div class="question" data-question="Is there anything else you wish to describe?">
-        <div class="question-title">(25) Is there anything else you wish to describe?</div>
-        <div class="options">
-          <!-- Free-form inline with textarea -->
-          <label class="option">
-            <input type="checkbox" name="q22" value="Free-form">
-            <textarea class="free-input free-inline" id="extraDescription" name="q22_free" placeholder="Add any extra notes or details here"></textarea>
-          </label>
+        <div class="question-group" data-question="24">
+          <p class="question-title">(24) What is the tone or mood of the overall image?</p>
+          <div class="options">
+            <label class="option-pill"><input type="checkbox" value="Warm and inviting"><span>Warm and inviting</span></label>
+            <label class="option-pill"><input type="checkbox" value="Clean and professional"><span>Clean and professional</span></label>
+            <label class="option-pill"><input type="checkbox" value="Dramatic and bold"><span>Dramatic and bold</span></label>
+            <label class="option-pill"><input type="checkbox" value="Soft and emotional"><span>Soft and emotional</span></label>
+          </div>
+          <textarea class="freeform-input" placeholder="Optional: describe story, feelings, or atmosphere."></textarea>
         </div>
-      </div>
 
-      <p class="summary-instruction">
-        <strong>Now that you've answered all of the questions, click on the Generate Summary for AI Prompt below. That will produce the Summary Content you need for the next step.</strong>
-      </p>
-
-      <div class="actions">
-        <button type="button" class="btn-primary" id="generateSummary">
-          Generate Summary for AI Prompt
-        </button>
-        <div class="hint">
-          Click “Generate Summary” after you are ready above.
+        <div class="question-group" data-question="25">
+          <p class="question-title">(25) Is there anything else you wish to describe?</p>
+          <textarea class="freeform-input" placeholder="Add any final notes, story details, or special instructions here."></textarea>
         </div>
-      </div>
-    </form>
 
-    <div class="summary-section">
-      <h2>Summary of Your Responses (for AI prompt)</h2>
-      <textarea id="summaryText" placeholder="Your summary will appear here after you click &quot;Generate Summary&quot;."></textarea>
-      <div class="summary-actions">
-        <button type="button" class="btn-secondary" id="copySummary">
-          Copy Summary Contents
-        </button>
-        <div class="hint">
-          Tip: Click “Copy Summary Contents” and paste it into your favorite AI bot (ChatGPT, Gemini, etc.).
+        <p class="hint">
+          Now that you've answered all of the questions, click on the button below to generate a summary you can use as an AI image prompt.
+        </p>
+
+        <div class="actions-row">
+          <button type="button" class="btn btn-primary" onclick="generateSummary()">
+            Generate Summary for AI Prompt
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="copySummary()">
+            Copy Summary Contents
+          </button>
         </div>
-      </div>
+
+        <div class="summary-block">
+          <h2 class="section-title">Summary of Your Responses (for AI prompt)</h2>
+          <textarea id="summary-output" placeholder="Your combined summary will appear here after you click “Generate Summary for AI Prompt.”"></textarea>
+          <p class="summary-tip">
+            Tip: Click “Copy Summary Contents” and paste it into your favorite AI bot
+            (ChatGPT, Gemini, etc.) and then ask it to generate an image.
+          </p>
+        </div>
+
+        <p class="footer-tip">
+          You can revisit this page any time, tweak your answers, and generate a new
+          summary for different kinds of people images.
+        </p>
+      </section>
     </div>
   </div>
 
   <script>
-    // Auto-check the "free-form" checkbox when user focuses or types in a free-form box
-    document.querySelectorAll('.free-input').forEach(function (inputEl) {
-      ['focus', 'input'].forEach(function (evt) {
-        inputEl.addEventListener(evt, function () {
-          const label = inputEl.closest('label.option');
-          if (!label) return;
-          const box = label.querySelector('input[type="checkbox"]');
-          if (box && !box.checked) {
-            box.checked = true;
-          }
-        });
-      });
-    });
-
-    // Generate summary (supports multiple selections per question)
-    document.getElementById("generateSummary").addEventListener("click", function () {
-      const questions = document.querySelectorAll(".question[data-question]");
+    function generateSummary() {
+      const groups = document.querySelectorAll(".question-group");
       const lines = [];
 
-      questions.forEach((q, index) => {
-        const label = q.getAttribute("data-question");
-        const inputs = q.querySelectorAll('input[type="checkbox"][name^="q"]');
-        if (!inputs.length) return;
+      groups.forEach((group, index) => {
+        const titleEl = group.querySelector(".question-title");
+        if (!titleEl) return;
 
-        const groupName = inputs[0].name;
-        const checkedInputs = Array.from(inputs).filter(i => i.checked);
+        const rawTitle = titleEl.textContent.trim();
+        const title = rawTitle.replace(/^\(\d+\)\s*/, "");
 
-        let answerText = "";
+        const checkedValues = Array.from(
+          group.querySelectorAll('input[type="checkbox"]:checked')
+        ).map((c) => c.value.trim());
 
-        if (checkedInputs.length) {
-          const parts = [];
-          checkedInputs.forEach(chk => {
-            if (chk.value === "Free-form") {
-              const free = q.querySelector('input[name="' + groupName + '_free"]') ||
-                           q.querySelector('textarea[name="' + groupName + '_free"]');
-              if (free && free.value.trim()) {
-                parts.push(free.value.trim());
-              } else {
-                parts.push("Free-form (no additional description provided)");
-              }
-            } else {
-              let part = chk.value;
-              const free = q.querySelector('input[name="' + groupName + '_free"]') ||
-                           q.querySelector('textarea[name="' + groupName + '_free"]');
-              if (free && free.value.trim()) {
-                part += " — " + free.value.trim();
-              }
-              parts.push(part);
-            }
-          });
-          answerText = parts.join("; ");
-        } else {
-          // No checkboxes selected; see if there's free text anyway
-          const freeOnly = q.querySelector('input[name="' + groupName + '_free"]') ||
-                           q.querySelector('textarea[name="' + groupName + '_free"]');
-          if (freeOnly && freeOnly.value.trim()) {
-            answerText = freeOnly.value.trim();
-          } else {
-            return; // skip unanswered
-          }
+        const freeformEl = group.querySelector(".freeform-input");
+        const freeformText = freeformEl ? freeformEl.value.trim() : "";
+
+        const parts = [];
+        if (checkedValues.length) {
+          parts.push(checkedValues.join("; "));
+        }
+        if (freeformText) {
+          parts.push(freeformText);
         }
 
-        const qNumberMatch = q.querySelector(".question-title")?.textContent.match(/^\((\d+)\)/);
-        const qNumber = qNumberMatch ? qNumberMatch[1] : (index + 1);
-
-        lines.push(qNumber + ". " + label + " — " + answerText);
+        if (parts.length) {
+          const questionNumber = index + 1;
+          lines.push(questionNumber + ". " + title + " — " + parts.join(" | "));
+        }
       });
 
-      const summary =
-        "Comprehensive people-image prompt based on the following choices:\n\n" +
-        lines.join("\n") +
-        "\n\nUse these details to generate a single coherent image prompt.\nAfter generating the prompt, ask 'Do you want me to run the prompt?'";
+      const summaryField = document.getElementById("summary-output");
+      summaryField.value = lines.join("\n");
+      summaryField.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
 
-      const summaryBox = document.getElementById("summaryText");
-      summaryBox.value = summary;
-      summaryBox.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    // Copy summary to clipboard
-    document.getElementById("copySummary").addEventListener("click", function () {
-      const summaryBox = document.getElementById("summaryText");
-      const text = summaryBox.value.trim();
-
-      if (!text) {
-        alert("There is no summary to copy yet. Please generate a summary first.");
+    function copySummary() {
+      const summaryField = document.getElementById("summary-output");
+      const text = summaryField.value;
+      if (!text.trim()) {
+        alert("There is no summary to copy yet. Please click “Generate Summary for AI Prompt” first.");
         return;
       }
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text)
-          .then(() => {
-            alert("Summary copied to clipboard.");
-          })
-          .catch(() => {
-            summaryBox.select();
-            try {
-              document.execCommand("copy");
-              alert("Summary copied to clipboard.");
-            } catch (e) {
-              alert("Unable to copy automatically. Please select the text and copy it manually.");
-            }
-          });
+        navigator.clipboard.writeText(text).then(
+          () => {
+            alert("Summary copied to your clipboard.");
+          },
+          () => {
+            summaryField.select();
+            document.execCommand("copy");
+            alert("Summary copied to your clipboard.");
+          }
+        );
       } else {
-        summaryBox.select();
-        try {
-          document.execCommand("copy");
-          alert("Summary copied to clipboard.");
-        } catch (e) {
-          alert("Unable to copy automatically. Please select the text and copy it manually.");
-        }
+        summaryField.select();
+        document.execCommand("copy");
+        alert("Summary copied to your clipboard.");
       }
-    });
+    }
   </script>
 </body>
 </html>
