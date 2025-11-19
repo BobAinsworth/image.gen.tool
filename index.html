@@ -214,6 +214,11 @@
       justify-content: space-between;
     }
 
+    .summary-instruction {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
     @media (max-width: 640px) {
       body {
         padding: 0.75rem;
@@ -1045,27 +1050,9 @@
         </div>
       </div>
 
-      <!-- Ready for summary -->
-      <div class="question" data-question="Are you ready for a summary of your responses?">
-        <div class="question-title">
-          Are you ready for a summary of your responses that can be used by your favorite AI bot to generate a comprehensive prompt?
-        </div>
-        <div class="options">
-          <label class="option">
-            <input type="radio" name="ready" value="Yes">
-            <span class="option-text">Yes</span>
-          </label>
-          <label class="option">
-            <input type="radio" name="ready" value="No">
-            <span class="option-text">No</span>
-          </label>
-          <!-- Free-form inline -->
-          <label class="option">
-            <input type="radio" name="ready" value="Free-form">
-            <input class="free-input free-inline" type="text" name="ready_free" placeholder="Describe your preference" />
-          </label>
-        </div>
-      </div>
+      <p class="summary-instruction">
+        <strong>Now that you've answered all of the questions, click on the Generate Summary for AI Prompt below. That will produce the Summary Content you need for the next step.</strong>
+      </p>
 
       <div class="actions">
         <button type="button" class="btn-primary" id="generateSummary">
@@ -1108,14 +1095,6 @@
 
     // Generate summary
     document.getElementById("generateSummary").addEventListener("click", function () {
-      const readyYes = document.querySelector('input[name="ready"][value="Yes"]:checked');
-      const readyFree = document.querySelector('input[name="ready"][value="Free-form"]:checked');
-
-      if (!readyYes && !readyFree) {
-        alert("Please indicate that you are ready for a summary (select Yes or describe your preference).");
-        return;
-      }
-
       const questions = document.querySelectorAll(".question[data-question]");
       const lines = [];
 
