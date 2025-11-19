@@ -79,6 +79,7 @@
       font-size: 1.7rem;
       font-weight: 700;
       letter-spacing: -0.03em;
+      line-height: 1.2; /* single-spaced look */
     }
 
     @media (min-width: 768px) {
@@ -90,8 +91,8 @@
     .hero-subtitle {
       margin: 10px 0 16px;
       font-size: 1.15rem;
-      font-weight: 500;
-      color: #7c2d12;
+      font-weight: 700; /* bold */
+      color: #000000;   /* black text */
     }
 
     .hero-note {
@@ -102,7 +103,8 @@
 
     .hero-image-wrapper {
       margin: 0 auto;
-      max-width: 360px;
+      width: 100%;
+      max-width: 100%;
       border-radius: 18px;
       overflow: hidden;
       border: 1px solid rgba(180, 83, 9, 0.28);
@@ -140,6 +142,7 @@
       font-weight: 700;
       letter-spacing: -0.03em;
       text-align: center;
+      line-height: 1.2; /* single-spaced look */
     }
 
     .page-subtitle {
@@ -148,13 +151,16 @@
       font-weight: 600;
       color: var(--accent);
       text-align: center;
+      line-height: 1.2; /* single-spaced look */
     }
 
     .page-tagline {
       margin: 6px 0 16px;
-      font-size: 0.98rem;
-      color: var(--muted);
+      font-size: 1.2rem;       /* match subtitle size */
+      font-weight: 600;        /* match subtitle weight */
+      color: var(--accent);    /* match subtitle color */
       text-align: center;
+      line-height: 1.2;
     }
 
     .page-intro {
@@ -379,13 +385,9 @@
       <!-- NEW TOP CARD WITH HERO IMAGE -->
       <section class="hero-card">
         <h1 class="hero-title">
-          Create Stunning Images with Just a Few Clicks?
+          Wouldn’t You Love to Create Images Like This with a Few Clicks?
         </h1>
-        <p class="hero-subtitle">Scroll down to find out how.</p>
-        <p class="hero-note">
-          The image below is just an example. You can easily swap it for any other
-          square-style preview from your <code>images</code> folder.
-        </p>
+        <p class="hero-subtitle"><strong>Scroll down to find out how.</strong></p>
 
         <div class="hero-image-wrapper">
           <!--
@@ -420,7 +422,6 @@
 
         <!-- SUBJECT BASICS -->
         <h2 class="section-title">Subject basics:</h2>
-        <p class="hint">Choose everything that applies and/or type your own details.</p>
 
         <div class="question-group" data-question="1">
           <p class="question-title">(1) What is the purpose or point of the image?</p>
@@ -875,12 +876,12 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           () => {
-            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+            alert("Summary copied to your clipboard.");
           },
           () => {
             summaryField.select();
             document.execCommand("copy");
-            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+            alert("Summary copied to your clipboard.");
           }
         );
       } else {
