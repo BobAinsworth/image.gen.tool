@@ -886,18 +886,18 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           () => {
-            alert("Summary copied to your clipboard.");
+            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
           },
           () => {
             summaryField.select();
             document.execCommand("copy");
-            alert("Summary copied to your clipboard.");
+            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
           }
         );
       } else {
         summaryField.select();
         document.execCommand("copy");
-        alert("Summary copied to your clipboard.");
+        alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
       }
     }
   </script>
