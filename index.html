@@ -32,12 +32,12 @@
     }
 
     body {
-      /* Match the warm gradient from card 1 */
-  background: linear-gradient(135deg, #fff7ed, #fef3c7);
-  color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
-  line-height: 1.6;
+      /* Match the warm gradient of Card 1 */
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      line-height: 1.6;
     }
 
     .page-shell {
@@ -58,7 +58,7 @@
       gap: 24px;
     }
 
-    /* ---------- NEW TOP CARD ---------- */
+    /* ---------- TOP CARD (HERO) ---------- */
 
     .hero-card {
       background: linear-gradient(135deg, #fff7ed, #fef3c7);
@@ -96,12 +96,6 @@
       color: #000000;   /* black text */
     }
 
-    .hero-note {
-      margin: 0 0 18px;
-      font-size: 0.98rem;
-      color: #9a3412;
-    }
-
     .hero-image-wrapper {
       margin: 0 auto;
       width: 100%;
@@ -123,12 +117,12 @@
 
     /* ---------- MAIN TOOL CARD ---------- */
 
-.tool-card {
-  background: #fff7ed; /* soft warm beige (matches Card 1 inner area) */
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  padding: 24px 18px 28px;
-  border: 1px solid var(--border);
+    .tool-card {
+      background: #fff5d7; /* mid-tone that visually matches Card 1 */
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 24px 18px 28px;
+      border: 1px solid var(--border);
     }
 
     @media (min-width: 768px) {
@@ -392,7 +386,7 @@
       <!-- NEW TOP CARD WITH HERO IMAGE -->
       <section class="hero-card">
         <h1 class="hero-title">
-          Create Stunning Images with just a few clicks!
+          Wouldn’t You Love to Create Images Like This with a Few Clicks?
         </h1>
         <p class="hero-subtitle"><strong>Scroll down to find out how.</strong></p>
 
@@ -420,10 +414,10 @@
       <section class="tool-card">
         <header>
           <h1 class="page-title">People Image Generation Prompt Tool</h1>
-          <p class="page-subtitle">Your shortcut to creating amazing images in ChatGPT or Gemini.</p>
+          <p class="page-subtitle">Create amazing one person images!</p>
           <p class="page-tagline">(No coding or prompting experience necessary)</p>
           <p class="page-intro">
-            <strong>Choose one or more or leave blank.</strong>
+            <strong>Make one or more choices and/or type your own wording into the box.</strong>
           </p>
         </header>
 
@@ -887,18 +881,18 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           () => {
-            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+            alert("Summary copied to your clipboard.");
           },
           () => {
             summaryField.select();
             document.execCommand("copy");
-            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+            alert("Summary copied to your clipboard.");
           }
         );
       } else {
         summaryField.select();
         document.execCommand("copy");
-        alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+        alert("Summary copied to your clipboard.");
       }
     }
   </script>
