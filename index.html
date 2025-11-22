@@ -833,6 +833,9 @@
   </div>
 
   <script>
+    const PROMPT_PREFIX =
+      "Please generate a comprehensive image generation prompt from the contents below. After generating that comprehensive image prompt, please run that prompt and generate the image.";
+
     function generateSummary() {
       const groups = document.querySelectorAll(".question-group");
       const lines = [];
@@ -866,7 +869,15 @@
       });
 
       const summaryField = document.getElementById("summary-output");
-      summaryField.value = lines.join("\n");
+      const prefix = PROMPT_PREFIX;
+      const body = lines.join("\n");
+
+      if (body.trim()) {
+        summaryField.value = prefix + "\n\n" + body;
+      } else {
+        summaryField.value = prefix + "\n\n(No selections were captured yet.)";
+      }
+
       summaryField.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
@@ -881,18 +892,18 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           () => {
-            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+            alert("Summary copied to your clipboard.");
           },
           () => {
             summaryField.select();
             document.execCommand("copy");
-            alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+            alert("Summary copied to your clipboard.");
           }
         );
       } else {
         summaryField.select();
         document.execCommand("copy");
-        alert("Summary copied to your clipboard. Paste it into ChatGPT or Gemini.");
+        alert("Summary copied to your clipboard.");
       }
     }
   </script>
