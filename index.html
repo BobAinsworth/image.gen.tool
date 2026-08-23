@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>People Image Generation Prompt Tool</title>
-  <meta name="description" content="Answer a few questions and generate a detailed AI prompt for creating high-quality images of people." />
+  <meta name="description" content="Answer a few questions and generate a detailed AI prompt for creating high-quality images of people.">
 
   <style>
     :root {
@@ -25,14 +25,20 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       height: 100%;
     }
 
     body {
-      background: radial-gradient(circle at top, #eef2ff 0, #f7fafc 40%, #edf2ff 100%);
+      background: radial-gradient(
+        circle at top,
+        #eef2ff 0,
+        #f7fafc 40%,
+        #edf2ff 100%
+      );
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
@@ -116,7 +122,7 @@
     /* ---------- MAIN TOOL CARD ---------- */
 
     .tool-card {
-      background: var(--card);
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       padding: 24px 18px 28px;
@@ -370,7 +376,7 @@
             class="hero-image"
             src="images/top-image.png"
             alt="Sample AI-generated portrait created from a detailed prompt"
-          />
+          >
         </div>
       </section>
 
@@ -473,12 +479,18 @@
             </label>
 
             <label class="option-pill">
-              <input type="checkbox" value="Professional audience (industry, business, LinkedIn, etc.)">
+              <input
+                type="checkbox"
+                value="Professional audience (industry, business, LinkedIn, etc.)"
+              >
               <span>Professional audience (industry, business, LinkedIn, etc.)</span>
             </label>
 
             <label class="option-pill">
-              <input type="checkbox" value="Creative community (artists, photographers, designers)">
+              <input
+                type="checkbox"
+                value="Creative community (artists, photographers, designers)"
+              >
               <span>Creative community (artists, photographers, designers)</span>
             </label>
 
@@ -827,7 +839,10 @@
             </label>
 
             <label class="option-pill">
-              <input type="checkbox" value="Dyed / unconventional color (blue, pink, purple, etc.)">
+              <input
+                type="checkbox"
+                value="Dyed / unconventional color (blue, pink, purple, etc.)"
+              >
               <span>Dyed / unconventional color (blue, pink, purple, etc.)</span>
             </label>
 
@@ -1014,22 +1029,85 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Casual"><span>Casual</span></label>
-            <label class="option-pill"><input type="checkbox" value="Business / professional"><span>Business / professional</span></label>
-            <label class="option-pill"><input type="checkbox" value="Elegant / formal"><span>Elegant / formal</span></label>
-            <label class="option-pill"><input type="checkbox" value="Outdoors / adventure"><span>Outdoors / adventure</span></label>
-            <label class="option-pill"><input type="checkbox" value="Sporty / athletic wear"><span>Sporty / athletic wear</span></label>
-            <label class="option-pill"><input type="checkbox" value="Streetwear"><span>Streetwear</span></label>
-            <label class="option-pill"><input type="checkbox" value="Vintage / retro"><span>Vintage / retro</span></label>
-            <label class="option-pill"><input type="checkbox" value="Summer / beachwear"><span>Summer / beachwear</span></label>
-            <label class="option-pill"><input type="checkbox" value="Winter / cold-weather clothing"><span>Winter / cold-weather clothing</span></label>
-            <label class="option-pill"><input type="checkbox" value="Smart casual"><span>Smart casual</span></label>
-            <label class="option-pill"><input type="checkbox" value="Bohemian / artistic"><span>Bohemian / artistic</span></label>
-            <label class="option-pill"><input type="checkbox" value="Traditional / cultural attire"><span>Traditional / cultural attire</span></label>
-            <label class="option-pill"><input type="checkbox" value="Formal uniform"><span>Formal uniform</span></label>
-            <label class="option-pill"><input type="checkbox" value="School / youth style"><span>School / youth style</span></label>
-            <label class="option-pill"><input type="checkbox" value="Minimalist / modern"><span>Minimalist / modern</span></label>
-            <label class="option-pill"><input type="checkbox" value="Luxurious / high fashion"><span>Luxurious / high fashion</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Casual">
+              <span>Casual</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Business / professional">
+              <span>Business / professional</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Elegant / formal">
+              <span>Elegant / formal</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Outdoors / adventure">
+              <span>Outdoors / adventure</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Sporty / athletic wear">
+              <span>Sporty / athletic wear</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Streetwear">
+              <span>Streetwear</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Vintage / retro">
+              <span>Vintage / retro</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Summer / beachwear">
+              <span>Summer / beachwear</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Winter / cold-weather clothing">
+              <span>Winter / cold-weather clothing</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Smart casual">
+              <span>Smart casual</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Bohemian / artistic">
+              <span>Bohemian / artistic</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Traditional / cultural attire">
+              <span>Traditional / cultural attire</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Formal uniform">
+              <span>Formal uniform</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="School / youth style">
+              <span>School / youth style</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Minimalist / modern">
+              <span>Minimalist / modern</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Luxurious / high fashion">
+              <span>Luxurious / high fashion</span>
+            </label>
           </div>
 
           <textarea
@@ -1047,11 +1125,30 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Indoor studio"><span>Indoor studio</span></label>
-            <label class="option-pill"><input type="checkbox" value="Outdoor nature"><span>Outdoor nature</span></label>
-            <label class="option-pill"><input type="checkbox" value="Urban city"><span>Urban city</span></label>
-            <label class="option-pill"><input type="checkbox" value="Home or lifestyle interior"><span>Home or lifestyle interior</span></label>
-            <label class="option-pill"><input type="checkbox" value="Futuristic or abstract"><span>Futuristic or abstract</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Indoor studio">
+              <span>Indoor studio</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Outdoor nature">
+              <span>Outdoor nature</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Urban city">
+              <span>Urban city</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Home or lifestyle interior">
+              <span>Home or lifestyle interior</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Futuristic or abstract">
+              <span>Futuristic or abstract</span>
+            </label>
           </div>
 
           <textarea
@@ -1066,12 +1163,38 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Directly at the camera"><span>Directly at the camera</span></label>
-            <label class="option-pill"><input type="checkbox" value="Slightly to the left"><span>Slightly to the left</span></label>
-            <label class="option-pill"><input type="checkbox" value="Slightly to the right"><span>Slightly to the right</span></label>
-            <label class="option-pill"><input type="checkbox" value="Upward"><span>Upward</span></label>
-            <label class="option-pill"><input type="checkbox" value="Downward"><span>Downward</span></label>
-            <label class="option-pill"><input type="checkbox" value="Off into the distance (not facing camera)"><span>Off into the distance (not facing camera)</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Directly at the camera">
+              <span>Directly at the camera</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Slightly to the left">
+              <span>Slightly to the left</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Slightly to the right">
+              <span>Slightly to the right</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Upward">
+              <span>Upward</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Downward">
+              <span>Downward</span>
+            </label>
+
+            <label class="option-pill">
+              <input
+                type="checkbox"
+                value="Off into the distance (not facing camera)"
+              >
+              <span>Off into the distance (not facing camera)</span>
+            </label>
           </div>
 
           <textarea
@@ -1086,12 +1209,35 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Front lighting (even illumination)"><span>Front lighting (even illumination)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Side lighting from the left"><span>Side lighting from the left</span></label>
-            <label class="option-pill"><input type="checkbox" value="Side lighting from the right"><span>Side lighting from the right</span></label>
-            <label class="option-pill"><input type="checkbox" value="Backlighting / silhouette"><span>Backlighting / silhouette</span></label>
-            <label class="option-pill"><input type="checkbox" value="Top lighting (overhead)"><span>Top lighting (overhead)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Bottom lighting (dramatic)"><span>Bottom lighting (dramatic)</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Front lighting (even illumination)">
+              <span>Front lighting (even illumination)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Side lighting from the left">
+              <span>Side lighting from the left</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Side lighting from the right">
+              <span>Side lighting from the right</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Backlighting / silhouette">
+              <span>Backlighting / silhouette</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Top lighting (overhead)">
+              <span>Top lighting (overhead)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Bottom lighting (dramatic)">
+              <span>Bottom lighting (dramatic)</span>
+            </label>
           </div>
 
           <textarea
@@ -1106,11 +1252,30 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Soft natural light"><span>Soft natural light</span></label>
-            <label class="option-pill"><input type="checkbox" value="Dramatic side light"><span>Dramatic side light</span></label>
-            <label class="option-pill"><input type="checkbox" value="Bright studio lighting"><span>Bright studio lighting</span></label>
-            <label class="option-pill"><input type="checkbox" value="Golden hour warm light"><span>Golden hour warm light</span></label>
-            <label class="option-pill"><input type="checkbox" value="Moody low-key shadowing"><span>Moody low-key shadowing</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Soft natural light">
+              <span>Soft natural light</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Dramatic side light">
+              <span>Dramatic side light</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Bright studio lighting">
+              <span>Bright studio lighting</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Golden hour warm light">
+              <span>Golden hour warm light</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Moody low-key shadowing">
+              <span>Moody low-key shadowing</span>
+            </label>
           </div>
 
           <textarea
@@ -1128,12 +1293,35 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Photorealistic"><span>Photorealistic</span></label>
-            <label class="option-pill"><input type="checkbox" value="Cinematic"><span>Cinematic</span></label>
-            <label class="option-pill"><input type="checkbox" value="Soft portrait photography"><span>Soft portrait photography</span></label>
-            <label class="option-pill"><input type="checkbox" value="Oil painting"><span>Oil painting</span></label>
-            <label class="option-pill"><input type="checkbox" value="Watercolor"><span>Watercolor</span></label>
-            <label class="option-pill"><input type="checkbox" value="Pencil sketch"><span>Pencil sketch</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Photorealistic">
+              <span>Photorealistic</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Cinematic">
+              <span>Cinematic</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Soft portrait photography">
+              <span>Soft portrait photography</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Oil painting">
+              <span>Oil painting</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Watercolor">
+              <span>Watercolor</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Pencil sketch">
+              <span>Pencil sketch</span>
+            </label>
           </div>
 
           <textarea
@@ -1148,10 +1336,28 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Shallow depth of field (blurry background)"><span>Shallow depth of field (blurry background)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Sharp detail throughout"><span>Sharp detail throughout</span></label>
-            <label class="option-pill"><input type="checkbox" value="Macro lens look"><span>Macro lens look</span></label>
-            <label class="option-pill"><input type="checkbox" value="Wide-angle environmental portrait"><span>Wide-angle environmental portrait</span></label>
+            <label class="option-pill">
+              <input
+                type="checkbox"
+                value="Shallow depth of field (blurry background)"
+              >
+              <span>Shallow depth of field (blurry background)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Sharp detail throughout">
+              <span>Sharp detail throughout</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Macro lens look">
+              <span>Macro lens look</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Wide-angle environmental portrait">
+              <span>Wide-angle environmental portrait</span>
+            </label>
           </div>
 
           <textarea
@@ -1166,12 +1372,35 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Square (1:1)"><span>Square (1:1)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Portrait (4:5)"><span>Portrait (4:5)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Portrait (3:4)"><span>Portrait (3:4)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Landscape (16:9)"><span>Landscape (16:9)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Landscape (3:2)"><span>Landscape (3:2)</span></label>
-            <label class="option-pill"><input type="checkbox" value="Ultra-wide (2:1)"><span>Ultra-wide (2:1)</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Square (1:1)">
+              <span>Square (1:1)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Portrait (4:5)">
+              <span>Portrait (4:5)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Portrait (3:4)">
+              <span>Portrait (3:4)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Landscape (16:9)">
+              <span>Landscape (16:9)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Landscape (3:2)">
+              <span>Landscape (3:2)</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Ultra-wide (2:1)">
+              <span>Ultra-wide (2:1)</span>
+            </label>
           </div>
 
           <textarea
@@ -1189,10 +1418,36 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="None"><span>None</span></label>
-            <label class="option-pill"><input type="checkbox" value="Props (glasses, hat, backpack, etc.) – describe below"><span>Props (glasses, hat, backpack, etc.) – describe below</span></label>
-            <label class="option-pill"><input type="checkbox" value="Motion effects (wind, particles, rain, etc.) – describe below"><span>Motion effects (wind, particles, rain, etc.) – describe below</span></label>
-            <label class="option-pill"><input type="checkbox" value="Background storytelling elements – describe below"><span>Background storytelling elements – describe below</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="None">
+              <span>None</span>
+            </label>
+
+            <label class="option-pill">
+              <input
+                type="checkbox"
+                value="Props (glasses, hat, backpack, etc.) – describe below"
+              >
+              <span>Props (glasses, hat, backpack, etc.) – describe below</span>
+            </label>
+
+            <label class="option-pill">
+              <input
+                type="checkbox"
+                value="Motion effects (wind, particles, rain, etc.) – describe below"
+              >
+              <span>
+                Motion effects (wind, particles, rain, etc.) – describe below
+              </span>
+            </label>
+
+            <label class="option-pill">
+              <input
+                type="checkbox"
+                value="Background storytelling elements – describe below"
+              >
+              <span>Background storytelling elements – describe below</span>
+            </label>
           </div>
 
           <textarea
@@ -1207,10 +1462,25 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Over-saturated colors"><span>Over-saturated colors</span></label>
-            <label class="option-pill"><input type="checkbox" value="Harsh shadows"><span>Harsh shadows</span></label>
-            <label class="option-pill"><input type="checkbox" value="Busy backgrounds"><span>Busy backgrounds</span></label>
-            <label class="option-pill"><input type="checkbox" value="Unrealistic skin smoothing"><span>Unrealistic skin smoothing</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Over-saturated colors">
+              <span>Over-saturated colors</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Harsh shadows">
+              <span>Harsh shadows</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Busy backgrounds">
+              <span>Busy backgrounds</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Unrealistic skin smoothing">
+              <span>Unrealistic skin smoothing</span>
+            </label>
           </div>
 
           <textarea
@@ -1225,10 +1495,25 @@
           </p>
 
           <div class="options">
-            <label class="option-pill"><input type="checkbox" value="Warm and inviting"><span>Warm and inviting</span></label>
-            <label class="option-pill"><input type="checkbox" value="Clean and professional"><span>Clean and professional</span></label>
-            <label class="option-pill"><input type="checkbox" value="Dramatic and bold"><span>Dramatic and bold</span></label>
-            <label class="option-pill"><input type="checkbox" value="Soft and emotional"><span>Soft and emotional</span></label>
+            <label class="option-pill">
+              <input type="checkbox" value="Warm and inviting">
+              <span>Warm and inviting</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Clean and professional">
+              <span>Clean and professional</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Dramatic and bold">
+              <span>Dramatic and bold</span>
+            </label>
+
+            <label class="option-pill">
+              <input type="checkbox" value="Soft and emotional">
+              <span>Soft and emotional</span>
+            </label>
           </div>
 
           <textarea
@@ -1303,7 +1588,10 @@
 
       groups.forEach((group, index) => {
         const titleEl = group.querySelector(".question-title");
-        if (!titleEl) return;
+
+        if (!titleEl) {
+          return;
+        }
 
         const rawTitle = titleEl.textContent.trim();
         const title = rawTitle.replace(/^\(\d+\)\s*/, "");
