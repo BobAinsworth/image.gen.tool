@@ -102,6 +102,7 @@
     }
 
     .hero-image-wrapper {
+      position: relative;
       margin: 0 auto;
       width: 100%;
       max-width: 100%;
@@ -113,10 +114,18 @@
     }
 
     .hero-image {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       display: block;
       object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .hero-image.is-active {
+      opacity: 1;
     }
 
     /* ---------- MAIN TOOL CARD ---------- */
@@ -381,11 +390,16 @@
         </p>
 
         <div class="hero-image-wrapper">
-          <img
-            class="hero-image"
-            src="images/top-image.png"
-            alt="Sample AI-generated portrait created from a detailed prompt"
-          >
+          <img class="hero-image is-active" src="images/slideshow-01.png" alt="Sample AI-generated portrait 1">
+          <img class="hero-image" src="images/slideshow-02.png" alt="Sample AI-generated portrait 2">
+          <img class="hero-image" src="images/slideshow-03.png" alt="Sample AI-generated portrait 3">
+          <img class="hero-image" src="images/slideshow-04.png" alt="Sample AI-generated portrait 4">
+          <img class="hero-image" src="images/slideshow-05.png" alt="Sample AI-generated portrait 5">
+          <img class="hero-image" src="images/slideshow-06.png" alt="Sample AI-generated portrait 6">
+          <img class="hero-image" src="images/slideshow-07.png" alt="Sample AI-generated portrait 7">
+          <img class="hero-image" src="images/slideshow-08.png" alt="Sample AI-generated portrait 8">
+          <img class="hero-image" src="images/slideshow-09.png" alt="Sample AI-generated portrait 9">
+          <img class="hero-image" src="images/slideshow-10.png" alt="Sample AI-generated portrait 10">
         </div>
       </section>
 
@@ -994,6 +1008,17 @@
   </div>
 
   <script>
+    const slideshowImages = document.querySelectorAll(".hero-image");
+    let activeSlideIndex = 0;
+
+    if (slideshowImages.length > 1) {
+      setInterval(() => {
+        slideshowImages[activeSlideIndex].classList.remove("is-active");
+        activeSlideIndex = (activeSlideIndex + 1) % slideshowImages.length;
+        slideshowImages[activeSlideIndex].classList.add("is-active");
+      }, 2500);
+    }
+
     function generateSummary() {
       const groups = document.querySelectorAll(".question-group");
       const lines = [
