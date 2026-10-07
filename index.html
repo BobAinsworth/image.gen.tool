@@ -983,7 +983,9 @@
   <script>
     function generateSummary() {
       const groups = document.querySelectorAll(".question-group");
-      const lines = [];
+      const lines = [
+        "Please generate a compelling image using the following prompt:"
+      ];
 
       groups.forEach((group, index) => {
         const titleEl = group.querySelector(".question-title");
@@ -1073,4 +1075,4 @@
     }
   </script>
 </body>
-</html
+</html>
