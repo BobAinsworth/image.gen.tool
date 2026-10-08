@@ -390,16 +390,16 @@
         </p>
 
         <div class="hero-image-wrapper">
-          <img class="hero-image is-active" src="images/slideshow-01.png" alt="Sample AI-generated portrait 1">
-          <img class="hero-image" src="images/slideshow-02.png" alt="Sample AI-generated portrait 2">
-          <img class="hero-image" src="images/slideshow-03.png" alt="Sample AI-generated portrait 3">
-          <img class="hero-image" src="images/slideshow-04.png" alt="Sample AI-generated portrait 4">
-          <img class="hero-image" src="images/slideshow-05.png" alt="Sample AI-generated portrait 5">
-          <img class="hero-image" src="images/slideshow-06.png" alt="Sample AI-generated portrait 6">
-          <img class="hero-image" src="images/slideshow-07.png" alt="Sample AI-generated portrait 7">
-          <img class="hero-image" src="images/slideshow-08.png" alt="Sample AI-generated portrait 8">
-          <img class="hero-image" src="images/slideshow-09.png" alt="Sample AI-generated portrait 9">
-          <img class="hero-image" src="images/slideshow-10.png" alt="Sample AI-generated portrait 10">
+          <img class="hero-image is-active" src="images/slideshow-01.jpg" alt="Sample AI-generated portrait 1">
+          <img class="hero-image" src="images/slideshow-02.jpg" alt="Sample AI-generated portrait 2">
+          <img class="hero-image" src="images/slideshow-03.jpg" alt="Sample AI-generated portrait 3">
+          <img class="hero-image" src="images/slideshow-04.jpg" alt="Sample AI-generated portrait 4">
+          <img class="hero-image" src="images/slideshow-05.jpg" alt="Sample AI-generated portrait 5">
+          <img class="hero-image" src="images/slideshow-06.jpg" alt="Sample AI-generated portrait 6">
+          <img class="hero-image" src="images/slideshow-07.jpg" alt="Sample AI-generated portrait 7">
+          <img class="hero-image" src="images/slideshow-08.jpg" alt="Sample AI-generated portrait 8">
+          <img class="hero-image" src="images/slideshow-09.jpg" alt="Sample AI-generated portrait 9">
+          <img class="hero-image" src="images/slideshow-10.jpg" alt="Sample AI-generated portrait 10">
         </div>
       </section>
 
@@ -1011,13 +1011,30 @@
     const slideshowImages = document.querySelectorAll(".hero-image");
     let activeSlideIndex = 0;
 
-    if (slideshowImages.length > 1) {
+    function startSlideshow() {
+      if (slideshowImages.length <= 1) {
+        return;
+      }
+
       setInterval(() => {
         slideshowImages[activeSlideIndex].classList.remove("is-active");
         activeSlideIndex = (activeSlideIndex + 1) % slideshowImages.length;
         slideshowImages[activeSlideIndex].classList.add("is-active");
       }, 2500);
     }
+
+    const slideLoadPromises = Array.from(slideshowImages).map((image) => {
+      if (image.complete) {
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    });
+
+    Promise.all(slideLoadPromises).then(startSlideshow);
 
     function generateSummary() {
       const groups = document.querySelectorAll(".question-group");
