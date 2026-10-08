@@ -1010,17 +1010,27 @@
   <script>
     const slideshowImages = document.querySelectorAll(".hero-image");
     let activeSlideIndex = 0;
+    let completedSlideshowCycles = 0;
+    let slideshowTimer;
 
     function startSlideshow() {
       if (slideshowImages.length <= 1) {
         return;
       }
 
-      setInterval(() => {
+      slideshowTimer = setInterval(() => {
         slideshowImages[activeSlideIndex].classList.remove("is-active");
         activeSlideIndex = (activeSlideIndex + 1) % slideshowImages.length;
         slideshowImages[activeSlideIndex].classList.add("is-active");
-      }, 2500);
+
+        if (activeSlideIndex === 0) {
+          completedSlideshowCycles += 1;
+
+          if (completedSlideshowCycles === 2) {
+            clearInterval(slideshowTimer);
+          }
+        }
+      }, 1500);
     }
 
     const slideLoadPromises = Array.from(slideshowImages).map((image) => {
